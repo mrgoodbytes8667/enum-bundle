@@ -19,6 +19,7 @@
         "symfony/serializer": "^5.1"
     },
     "require-dev": {
+        "ext-json": "*",
         "symfony/phpunit-bridge": "^5.1",
         "symfony/var-dumper": "^5.1"
     },
