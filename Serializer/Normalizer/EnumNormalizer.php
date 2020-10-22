@@ -2,7 +2,8 @@
 
 namespace Bytes\EnumSerializerBundle\Serializer\Normalizer;
 
-use Spatie\Enum\Enum;
+use Bytes\EnumSerializerBundle\Enums\Enum;
+use Spatie\Enum\Enum as EnumParent;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
@@ -35,9 +36,9 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
     /**
      * Normalizes an object into a set of arrays/scalars.
      *
-     * @param mixed  $object  Object to normalize
-     * @param string $format  Format the normalization result will be encoded as
-     * @param array  $context Context options for the normalizer
+     * @param mixed $object Object to normalize
+     * @param string $format Format the normalization result will be encoded as
+     * @param array $context Context options for the normalizer
      *
      * @return array|string|int|float|bool|\ArrayObject|null \ArrayObject is used to make sure an empty object is encoded as an object not an array
      *
@@ -49,13 +50,20 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
      */
     public function normalize($object, string $format = null, array $context = [])
     {
-        return ['value' => $object->value];
+        if ($object instanceof Enum) {
+            return $object->jsonSerialize();
+        } else {
+            return [
+                'label' => $object->label,
+                'value' => $object->value
+            ];
+        }
     }
 
     /**
      * Checks whether the given class is supported for normalization by this normalizer.
      *
-     * @param mixed  $data   Data to normalize
+     * @param mixed $data Data to normalize
      * @param string $format The format being (de-)serialized from or into
      * @param array $context options that normalizers have access to
      *
@@ -63,7 +71,7 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
      */
     public function supportsNormalization($data, string $format = null, array $context = [])
     {
-        return $data instanceof Enum;
+        return $data instanceof EnumParent;
     }
 
     /**
