@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Bytes\EnumBundle\DependencyInjection;
+namespace Bytes\EnumSerializerBundle\DependencyInjection;
 
 
 use Exception;
@@ -13,10 +13,10 @@ use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 /**
- * Class BytesEnumExtension
+ * Class BytesEnumSerializerExtension
  * @package Bytes\EnumBundle\DependencyInjection
  */
-class BytesEnumExtension extends Extension implements ExtensionInterface
+class BytesEnumSerializerExtension extends Extension implements ExtensionInterface
 {
     /**
      * Loads a specific configuration.

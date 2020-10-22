@@ -1,6 +1,6 @@
 <?php
 
-namespace Bytes\EnumBundle\Serializer\Normalizer;
+namespace Bytes\EnumSerializerBundle\Serializer\Normalizer;
 
 use Spatie\Enum\Enum;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
