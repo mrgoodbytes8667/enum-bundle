@@ -1,0 +1,27 @@
+{
+    "name": "mrgoodbytes8667/enum-bundle",
+    "description": "A bundle to enable spatie/enum Serialization support in Symfony",
+    "type": "symfony-bundle",
+    "license": "CC-BY-NC-4.0",
+    "require": {
+        "php": "^7.4",
+        "spatie/enum": "^3.2|^3.3",
+        "symfony/config": "^5.1",
+        "symfony/dependency-injection": "^5.1",
+        "symfony/framework-bundle": "^5.1"
+    },
+    "authors": [
+        {
+            "name": "MrGoodBytes",
+            "email": "bytes@goodbytes.live"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Bytes\\EnumBundle\\": ""
+        }
+    }
+}
