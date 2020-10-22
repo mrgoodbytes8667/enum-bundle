@@ -1,5 +1,5 @@
 # enum-serializer-bundle
-[![PHP from Packagist](https://img.shields.io/packagist/php-v/mrgoodbytes8667/enum-serializer-bundle?style=flat)](https://packagist.org/packages/mrgoodbytes8667/enum-serializer-bundle) ![Packagist Version](https://img.shields.io/packagist/v/mrgoodbytes8667/enum-serializer-bundle?style=flat) ![run-tests](https://github.com/mrgoodbytes8667/enum-serializer-bundle/workflows/run-tests/badge.svg) ![Packagist License](https://img.shields.io/packagist/l/mrgoodbytes8667/enum-serializer-bundle?style=flat)  
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/mrgoodbytes8667/enum-serializer-bundle?style=flat)](https://packagist.org/packages/mrgoodbytes8667/enum-serializer-bundle) ![Packagist Version](https://img.shields.io/packagist/v/mrgoodbytes8667/enum-serializer-bundle?style=flat) ![release](https://github.com/mrgoodbytes8667/enum-serializer-bundle/workflows/release/badge.svg) ![tests](https://github.com/mrgoodbytes8667/enum-serializer-bundle/workflows/tests/badge.svg) ![Packagist License](https://img.shields.io/packagist/l/mrgoodbytes8667/enum-serializer-bundle?style=flat)  
 A bundle to enable [spatie/enum](https://github.com/spatie/enum) Serialization support in Symfony
 
 ## Installation
