@@ -31,6 +31,22 @@ abstract class Enum extends ParentEnum
     }
 
     /**
+     * @return string[]
+     */
+    public static function getLabels(): array
+    {
+        return static::labels();
+    }
+
+    /**
+     * @return string[]|int[]
+     */
+    public static function getValues(): array
+    {
+        return static::values();
+    }
+
+    /**
      * @return array|int|string
      */
     public function jsonSerialize()
