@@ -53,7 +53,7 @@ jobs:
           mkdir -p bin
           cd bin
           rm -f phpunit
-          wget https://raw.githubusercontent.com/symfony/recipes/master/symfony/phpunit-bridge/3.3/bin/phpunit
+          wget https://raw.githubusercontent.com/symfony/recipes/master/symfony/phpunit-bridge/4.3/bin/phpunit
           cd ../
 
       - name: Setup and Run PHPUnit

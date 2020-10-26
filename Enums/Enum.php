@@ -5,13 +5,14 @@ namespace Bytes\EnumSerializerBundle\Enums;
 
 
 use BadMethodCallException;
+use Spatie\Enum\Enum as ParentEnum;
 use TypeError;
 
 /**
  * Class Enum
  * @package Bytes\EnumSerializerBundle\Enums
  */
-abstract class Enum extends \Spatie\Enum\Enum
+abstract class Enum extends ParentEnum
 {
     /**
      * Helper method to determine if a supplied value is an enum value
