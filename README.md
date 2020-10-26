@@ -1,6 +1,6 @@
 # enum-serializer-bundle
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/mrgoodbytes8667/enum-serializer-bundle?style=flat)](https://packagist.org/packages/mrgoodbytes8667/enum-serializer-bundle)
-![Packagist Version](https://img.shields.io/packagist/v/mrgoodbytes8667/enum-serializer-bundle?style=flat)
+[![Packagist Version](https://img.shields.io/packagist/v/mrgoodbytes8667/enum-serializer-bundle?style=flat)](https://packagist.org/packages/mrgoodbytes8667/enum-serializer-bundle)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mrgoodbytes8667/enum-serializer-bundle/release?style=flat&label=stable)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mrgoodbytes8667/enum-serializer-bundle/tests?style=flat)
 ![Packagist License](https://img.shields.io/packagist/l/mrgoodbytes8667/enum-serializer-bundle?style=flat)  
