@@ -27,10 +27,11 @@ phpdoc.xml
 /docs/
 ###< phpdoc
 
+###> symfony bundle
+composer.lock
+bin/phpunit
+###< symfony bundle
+
 ###> jetbrains
 .idea
 ###< jetbrains
-
-###> bundle
-composer.lock
-###< bundle
