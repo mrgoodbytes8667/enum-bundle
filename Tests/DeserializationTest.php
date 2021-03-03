@@ -9,43 +9,49 @@ use Bytes\EnumSerializerBundle\Tests\Fixtures\LabelsEnum;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\PlainEnum;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\PlainInheritedEnum;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\ValuesEnum;
+use Generator;
 
+/**
+ * Class DeserializationTest
+ * @package Bytes\EnumSerializerBundle\Tests
+ */
 class DeserializationTest extends TestSerializationCase
 {
-    public function testPlainDeserialization()
+    /**
+     * @param string $data
+     * @param string $type
+     * @param string|int $expected
+     *
+     * @dataProvider provideDeserializationData
+     */
+    public function testDeserialization(string $data, string $type, $expected)
     {
         $serializer = $this->createSerializer();
-
-        $output = $serializer->deserialize($this->buildFixtureResponse('channelCreate'), PlainEnum::class, 'json');
-
-        $this->assertEquals(PlainEnum::channelCreate(), $output);
+        $output = $serializer->deserialize($data, $type, 'json');
+        $this->assertEquals($expected, $output);
     }
 
-    public function testValuesDeserialization()
+    /**
+     * @return Generator
+     */
+    public function provideDeserializationData()
     {
-        $serializer = $this->createSerializer();
-        $output = $serializer->deserialize($this->buildFixtureResponse('stream', 'streamChanged'), ValuesEnum::class, 'json');
-        $this->assertEquals(ValuesEnum::streamChanged(), $output);
-    }
+        yield ['data' => $this->buildFixtureResponse('channelCreate'), 'type' => PlainEnum::class, 'expected' => PlainEnum::channelCreate()];
+        yield ['data' => $this->buildFixtureResponse('stream', 'streamChanged'), 'type' => ValuesEnum::class, 'expected' => ValuesEnum::streamChanged()];
+        yield ['data' => $this->buildFixtureResponse('streamChanged', 'stream'), 'type' => LabelsEnum::class, 'expected' => LabelsEnum::streamChanged()];
+        yield ['data' => $this->buildFixtureResponse('streamValue', 'streamLabel'), 'type' => BothEnum::class, 'expected' => BothEnum::streamChanged()];
+        yield ['data' => json_encode(PlainInheritedEnum::channelCreate()), 'type' => PlainInheritedEnum::class, 'expected' => PlainInheritedEnum::channelCreate()];
 
-    public function testLabelsDeserialization()
-    {
-        $serializer = $this->createSerializer();
-        $output = $serializer->deserialize($this->buildFixtureResponse('streamChanged', 'stream'), LabelsEnum::class, 'json');
-        $this->assertEquals(LabelsEnum::streamChanged(), $output);
-    }
-
-    public function testBothDeserialization()
-    {
-        $serializer = $this->createSerializer();
-        $output = $serializer->deserialize($this->buildFixtureResponse('streamValue', 'streamLabel'), BothEnum::class, 'json');
-        $this->assertEquals(BothEnum::streamChanged(), $output);
-    }
-
-    public function testPlainInheritedDeserialization()
-    {
-        $serializer = $this->createSerializer();
-        $output = $serializer->deserialize(json_encode(PlainInheritedEnum::channelCreate()), PlainInheritedEnum::class, 'json');
-        $this->assertEquals(PlainInheritedEnum::channelCreate(), $output);
+        yield ['data' => json_encode(PlainEnum::channelCreate()), 'type' => PlainEnum::class, 'expected' => PlainEnum::channelCreate()];
+        yield ['data' => json_encode(ValuesEnum::streamChanged()), 'type' => ValuesEnum::class, 'expected' => ValuesEnum::streamChanged()];
+        yield ['data' => json_encode(LabelsEnum::streamChanged()), 'type' => LabelsEnum::class, 'expected' => LabelsEnum::streamChanged()];
+        yield ['data' => json_encode(BothEnum::streamChanged()), 'type' => BothEnum::class, 'expected' => BothEnum::streamChanged()];
+        yield ['data' => json_encode(PlainInheritedEnum::channelCreate()), 'type' => PlainInheritedEnum::class, 'expected' => PlainInheritedEnum::channelCreate()];
+        
+        yield ['data' => json_encode(PlainEnum::channelCreate()->value), 'type' => PlainEnum::class, 'expected' => PlainEnum::channelCreate()];
+        yield ['data' => json_encode(ValuesEnum::streamChanged()->value), 'type' => ValuesEnum::class, 'expected' => ValuesEnum::streamChanged()];
+        yield ['data' => json_encode(LabelsEnum::streamChanged()->value), 'type' => LabelsEnum::class, 'expected' => LabelsEnum::streamChanged()];
+        yield ['data' => json_encode(BothEnum::streamChanged()->value), 'type' => BothEnum::class, 'expected' => BothEnum::streamChanged()];
+        yield ['data' => json_encode(PlainInheritedEnum::channelCreate()->value), 'type' => PlainInheritedEnum::class, 'expected' => PlainInheritedEnum::channelCreate()];
     }
 }
