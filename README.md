@@ -1,10 +1,11 @@
 # enum-serializer-bundle
-[![PHP from Packagist](https://img.shields.io/packagist/php-v/mrgoodbytes8667/enum-serializer-bundle?style=flat)](https://packagist.org/packages/mrgoodbytes8667/enum-serializer-bundle)
-[![Packagist Version](https://img.shields.io/packagist/v/mrgoodbytes8667/enum-serializer-bundle?style=flat)](https://packagist.org/packages/mrgoodbytes8667/enum-serializer-bundle)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mrgoodbytes8667/enum-serializer-bundle/release?style=flat&label=stable)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mrgoodbytes8667/enum-serializer-bundle/tests?style=flat)
-![Packagist License](https://img.shields.io/packagist/l/mrgoodbytes8667/enum-serializer-bundle?style=flat)
-![Symfony Version](https://img.shields.io/badge/symfony-^5.2-lightgrey?style=flat)
+[![Packagist Version](https://img.shields.io/packagist/v/mrgoodbytes8667/enum-serializer-bundle?logo=packagist&logoColor=FFF&style=flat)](https://packagist.org/packages/mrgoodbytes8667/enum-serializer-bundle)
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/mrgoodbytes8667/enum-serializer-bundle?logo=php&logoColor=FFF&style=flat)](https://packagist.org/packages/mrgoodbytes8667/enum-serializer-bundle)
+![Symfony Version](https://img.shields.io/badge/symfony-%5E5.2-lightgrey?logo=symfony&logoColor=FFFFFF&style=flat)
+![Packagist License](https://img.shields.io/packagist/l/mrgoodbytes8667/enum-serializer-bundle?logo=creative-commons&logoColor=FFFFFF&style=flat)  
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mrgoodbytes8667/enum-serializer-bundle/release?label=stable&logo=github&logoColor=FFFFFF&style=flat)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mrgoodbytes8667/enum-serializer-bundle/tests?logo=github&logoColor=FFFFFF&style=flat)
+[![codecov](https://img.shields.io/codecov/c/github/mrgoodbytes8667/enum-serializer-bundle?logo=codecov&logoColor=FFF&style=flat)](https://codecov.io/gh/mrgoodbytes8667/enum-serializer-bundle)  
 A bundle to enable [spatie/enum](https://github.com/spatie/enum) Serialization support in Symfony
 
 ## Installation
