@@ -23,7 +23,7 @@ abstract class Enum extends ParentEnum
     public static function isValid($value): bool
     {
         try {
-            $enum = static::make($value);
+            $enum = static::from($value);
             return true;
         } catch (BadMethodCallException | TypeError $exception) {
             return false;
