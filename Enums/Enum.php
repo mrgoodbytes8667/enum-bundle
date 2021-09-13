@@ -35,7 +35,6 @@ abstract class Enum extends ParentEnum
      * @param string|int $value
      *
      * @return static
-     * @deprecated Use `from()` instead
      */
     #[Deprecated(reason: 'since 1.3.1, use from() instead', replacement: '%class%::from(%parameter0%)')]
     public static function make($value): Enum
