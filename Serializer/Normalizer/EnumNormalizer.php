@@ -38,7 +38,7 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
      * @throws LogicException             Occurs when the normalizer is not called in an expected context
      * @throws ExceptionInterface         Occurs for all the other cases of errors
      */
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
         if ($object instanceof Enum) {
             return $object->jsonSerialize();
@@ -59,7 +59,7 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
      *
      * @return bool
      */
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
         return $data instanceof EnumParent;
     }
@@ -82,7 +82,7 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
      * @throws RuntimeException         Occurs if the class cannot be instantiated
      * @throws ExceptionInterface       Occurs for all the other cases of errors
      */
-    public function denormalize($data, string $type, string $format = null, array $context = [])
+    public function denormalize($data, string $type, string $format = null, array $context = []): mixed
     {
         if(is_array($data)) {
             if(array_key_exists('value', $data)) {
@@ -105,7 +105,7 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
      *
      * @return bool
      */
-    public function supportsDenormalization($data, string $type, string $format = null)
+    public function supportsDenormalization($data, string $type, string $format = null): bool
     {
         return is_subclass_of($type, EnumParent::class);
     }
