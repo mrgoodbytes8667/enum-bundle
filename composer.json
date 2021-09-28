@@ -31,5 +31,6 @@
         "psr-4": {
             "Bytes\\EnumSerializerBundle\\": ""
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
