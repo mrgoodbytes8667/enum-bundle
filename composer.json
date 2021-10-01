@@ -31,11 +31,5 @@
         "psr-4": {
             "Bytes\\EnumSerializerBundle\\": ""
         }
-    },
-    "minimum-stability": "dev",
-    "extra": {
-        "branch-alias": {
-            "dev-symfony5.4": "1.4.x-dev"
-        }
     }
 }
