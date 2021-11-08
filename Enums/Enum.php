@@ -5,6 +5,7 @@ namespace Bytes\EnumSerializerBundle\Enums;
 
 
 use BadMethodCallException;
+use JetBrains\PhpStorm\ArrayShape;
 use JetBrains\PhpStorm\Deprecated;
 use Spatie\Enum\Enum as ParentEnum;
 use TypeError;
@@ -45,22 +46,27 @@ abstract class Enum extends ParentEnum
     /**
      * @return string[]
      */
+    #[Deprecated(reason: 'since 1.5.0, use "toLabels()" instead.', replacement: '%class%::toLabels()')]
     public static function getLabels(): array
     {
-        return static::labels();
+        trigger_deprecation('mrgoodbytes8667/enum-serializer-bundle', '1.5.0', 'Using "%s" is deprecated, use "%s()" instead.', __METHOD__, 'toLabels');
+        return static::toLabels();
     }
 
     /**
      * @return string[]|int[]
      */
+    #[Deprecated(reason: 'since 1.5.0, use "toValues()" instead.', replacement: '%class%::toValues()')]
     public static function getValues(): array
     {
-        return static::values();
+        trigger_deprecation('mrgoodbytes8667/enum-serializer-bundle', '1.5.0', 'Using "%s" is deprecated, use "%s()" instead.', __METHOD__, 'toValues');
+        return static::toValues();
     }
 
     /**
      * @return array|int|string
      */
+    #[ArrayShape(['label' => "string", 'value' => "int|string"])]
     public function jsonSerialize()
     {
         return [
