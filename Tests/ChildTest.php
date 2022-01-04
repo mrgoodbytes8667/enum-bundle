@@ -19,6 +19,7 @@ class ChildTest extends TestSerializationCase
     }
 
     /**
+     * @group legacy
      * @return void
      */
     public function testMake() {
@@ -26,6 +27,7 @@ class ChildTest extends TestSerializationCase
     }
 
     /**
+     * @group legacy
      * @return void
      */
     public function testDeprecatedGetToFunctions() {
