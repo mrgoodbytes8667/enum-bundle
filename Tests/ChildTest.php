@@ -9,10 +9,32 @@ use Bytes\EnumSerializerBundle\Tests\Fixtures\PlainInheritedEnum;
 
 class ChildTest extends TestSerializationCase
 {
+    /**
+     * @return void
+     */
     public function testIsValidFunction()
     {
         $this->assertTrue(PlainInheritedEnum::isValid('channelCreate'));
         $this->assertFalse(PlainInheritedEnum::isValid('abcdefg'));
+    }
+
+    /**
+     * @group legacy
+     * @return void
+     */
+    public function testMake() {
+        $this->assertEquals(PlainInheritedEnum::from('channelCreate'), PlainInheritedEnum::make('channelCreate'));
+    }
+
+    /**
+     * @group legacy
+     * @return void
+     */
+    public function testDeprecatedGetToFunctions() {
+        $this->assertCount(2, PlainInheritedEnum::getLabels());
+        $this->assertCount(2, PlainInheritedEnum::toLabels());
+        $this->assertCount(2, PlainInheritedEnum::getValues());
+        $this->assertCount(2, PlainInheritedEnum::toValues());
     }
 
     /**
