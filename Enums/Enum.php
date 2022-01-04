@@ -20,7 +20,17 @@ abstract class Enum extends ParentEnum
     #[Deprecated(reason: 'since 1.6.0, there is no label')]
     protected string $label;
 
+    #[Deprecated(reason: 'since 1.7.0, use "cases()" instead.', replacement: '%class%::cases()')]
+    public static function tempToValues(): array
+    {
+        return array_keys(static::tempToArray());
+    }
 
+    #[Deprecated(reason: 'since 1.7.0, use "cases()" instead.', replacement: '%class%::cases()')]
+    public static function tempToArray(): array
+    {
+        return parent::toArray();
+    }
 
     /**
      * @return array|int|string
