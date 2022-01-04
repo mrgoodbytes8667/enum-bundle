@@ -27,9 +27,13 @@
     "config": {
         "sort-packages": true
     },
+    "conflict": {
+        "phpunit/phpunit": "<9.5"
+    },
     "autoload": {
         "psr-4": {
             "Bytes\\EnumSerializerBundle\\": ""
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
