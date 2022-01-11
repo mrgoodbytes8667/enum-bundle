@@ -18,7 +18,7 @@ trait BackedEnumTrait
     {
         $return = [];
         foreach (static::cases() as $value) {
-            $return[u($value->name)->replace('-', '_')->snake()->replace('_', ' ')->title(true)->toString()] = $value->value;
+            $return[u($value->name)->lower()->replace('_', ' ')->title(true)->toString()] = $value->value;
         }
 
         return $return;
