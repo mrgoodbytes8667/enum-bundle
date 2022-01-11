@@ -7,7 +7,7 @@ use JetBrains\PhpStorm\Deprecated;
 use TypeError;
 
 /**
- * @method static from(int|string $value)
+ * @method static static from(int|string $value)
  */
 trait EnumTrait
 {
