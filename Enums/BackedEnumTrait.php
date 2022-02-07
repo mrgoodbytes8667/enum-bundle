@@ -23,4 +23,14 @@ trait BackedEnumTrait
 
         return $return;
     }
+
+    /**
+     * @return string[]|int[]
+     */
+    public static function values(): array
+    {
+        return array_map(function ($e) {
+            return $e->value;
+        }, static::cases());
+    }
 }
