@@ -4,9 +4,10 @@
 namespace Bytes\EnumSerializerBundle\Tests\Fixtures;
 
 
+use Bytes\EnumSerializerBundle\Enums\BackedEnumInterface;
 use Bytes\EnumSerializerBundle\Enums\BackedEnumTrait;
 
-enum ValuesEnum: string
+enum ValuesEnum: string implements BackedEnumInterface
 {
     use BackedEnumTrait;
 

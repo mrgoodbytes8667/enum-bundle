@@ -8,6 +8,67 @@
 [![codecov](https://img.shields.io/codecov/c/github/mrgoodbytes8667/enum-serializer-bundle?logo=codecov&logoColor=FFF&style=flat)](https://codecov.io/gh/mrgoodbytes8667/enum-serializer-bundle)  
 A bundle to provide some helper methods for PHP 8.1+ enums
 
+## Upgrading to 2.0
+Change all classes that extend `Bytes\EnumSerializerBundle\Enums\Enum` to be string backed enums, using the new
+`Bytes\EnumSerializerBundle\Enums\BackedEnumTrait` trait and implementing the new
+`Bytes\EnumSerializerBundle\Enums\BackedEnumInterface` interface.
+
+- `Bytes\EnumSerializerBundle\Enums\BackedEnumTrait` provides the previous `Enum` class methods that are still relevant
+and needed with the switch to enums, including a `jsonSerializable()` method to keep serialization consistent.
+- `Bytes\EnumSerializerBundle\Enums\BackedEnumInterface` must be implemented (or `\JsonSerializable`) in order to have
+the serializer properly return label/value as it did prior to 2.0.
+
+### Before
+
+```php
+<?php
+
+
+namespace Bytes\EnumSerializerBundle\Tests\Fixtures;
+
+
+use Spatie\Enum\Enum;
+
+/**
+ * @method static self streamChanged()
+ * @method static self userChanged()
+ */
+class ValuesEnum extends Enum
+{
+    /**
+     * @return string[]
+     */
+    protected static function values(): array
+    {
+        return [
+            'streamChanged' => 'stream',
+            'userChanged' => 'user',
+        ];
+    }
+}
+```
+
+### After
+
+```php
+<?php
+
+
+namespace Bytes\EnumSerializerBundle\Tests\Fixtures;
+
+
+use Bytes\EnumSerializerBundle\Enums\BackedEnumInterface;
+use Bytes\EnumSerializerBundle\Enums\BackedEnumTrait;
+
+enum ValuesEnum: string implements BackedEnumInterface
+{
+    use BackedEnumTrait;
+
+    case streamChanged = 'stream';
+    case userChanged = 'user';
+}
+```
+
 ## Installation
 
 Make sure Composer is installed globally, as explained in the
