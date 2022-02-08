@@ -17,6 +17,10 @@ Change all classes that extend `Bytes\EnumSerializerBundle\Enums\Enum` to be str
 and needed with the switch to enums, including a `jsonSerializable()` method to keep serialization consistent.
 - `Bytes\EnumSerializerBundle\Enums\BackedEnumInterface` must be implemented (or `\JsonSerializable`) in order to have
 the serializer properly return label/value as it did prior to 2.0.
+- Note: `Bytes\EnumSerializerBundle\Enums\BackedEnumInterface` extends both
+`Bytes\EnumSerializerBundle\Enums\EasyAdminChoiceEnumInterface` and
+`Bytes\EnumSerializerBundle\Enums\FormChoiceEnumInterfac`, which both automatically provide EasyAdminBundle and Symfony 
+form compatible choice methods and are easily overloadable.
 
 ### Before
 
