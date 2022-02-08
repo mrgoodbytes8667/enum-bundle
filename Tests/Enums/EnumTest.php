@@ -4,6 +4,7 @@ namespace Bytes\EnumSerializerBundle\Tests\Enums;
 
 use Bytes\EnumSerializerBundle\PhpUnit\EnumAssertions;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\BackedEnum;
+use Bytes\EnumSerializerBundle\Tests\Fixtures\LabelsEnum;
 use Generator;
 use PHPUnit\Framework\TestCase;
 use ValueError;
@@ -106,6 +107,12 @@ class EnumTest extends TestCase
     {
         $this->expectException(ValueError::class);
         BackedEnum::normalizeToValue('abc123');
+    }
+
+    public function testNormalizeToValueFailureWrongEnum()
+    {
+        $this->expectException(ValueError::class);
+        BackedEnum::normalizeToValue(LabelsEnum::userChanged);
     }
 
     /**

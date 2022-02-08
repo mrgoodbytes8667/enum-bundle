@@ -5,9 +5,6 @@ namespace Bytes\EnumSerializerBundle\Enums;
 use BackedEnum;
 use ValueError;
 
-/**
- * @method static string[] values()
- */
 trait StringBackedEnumTrait
 {
     use BackedEnumTrait;
@@ -15,33 +12,30 @@ trait StringBackedEnumTrait
     /**
      * @param BackedEnum|string $value
      * @return string
+     * @throws ValueError
      */
-    public static function normalizeToValue(self|string $value): string
+    public static function normalizeToValue(BackedEnum|string $value): string
     {
         if ($value instanceof static) {
             return $value->value;
-        } elseif (!is_null(static::tryFrom($value))) {
+        } elseif (is_string($value) && !is_null(static::from($value))) {
             return $value;
         } else {
-            throw new ValueError(sprintf('The value "%s" is not a value for the "%s" enum.', $value, __CLASS__));
+            throw new ValueError(sprintf('The supplied value cannot be normalized for the "%s" enum.', __CLASS__));
         }
     }
 
     /**
      * @param BackedEnum|string $value
      * @return static
+     * @throws ValueError
      */
-    public static function normalizeToEnum(self|string $value): static
+    public static function normalizeToEnum(BackedEnum|string $value): static
     {
         if ($value instanceof static) {
             return $value;
         }
 
-        $value = static::tryFrom($value);
-        if (!is_null($value)) {
-            return $value;
-        } else {
-            throw new ValueError(sprintf('The value "%s" is not a value for the "%s" enum.', $value, __CLASS__));
-        }
+        return static::from($value);
     }
 }

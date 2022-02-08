@@ -2,9 +2,10 @@
 
 namespace Bytes\EnumSerializerBundle\Tests\Fixtures;
 
+use Bytes\EnumSerializerBundle\Enums\StringBackedEnumInterface;
 use Bytes\EnumSerializerBundle\Enums\StringBackedEnumTrait;
 
-enum BackedEnum: string
+enum BackedEnum: string implements StringBackedEnumInterface
 {
     use StringBackedEnumTrait;
 
