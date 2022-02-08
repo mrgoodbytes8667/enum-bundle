@@ -4,27 +4,12 @@
 namespace Bytes\EnumSerializerBundle\Tests\Fixtures;
 
 
-use Spatie\Enum\Enum;
+use Bytes\EnumSerializerBundle\Enums\BackedEnumTrait;
 
-/**
- * Class ValuesEnum
- * @package Bytes\EnumSerializerBundle\Tests\Fixtures
- *
- * @method static self streamChanged()
- * @method static self userChanged()
- *
- * @link https://github.com/spatie/enum
- */
-class ValuesEnum extends Enum
+enum ValuesEnum: string
 {
-    /**
-     * @return string[]
-     */
-    protected static function values(): array
-    {
-        return [
-            'streamChanged' => 'stream',
-            'userChanged' => 'user',
-        ];
-    }
+    use BackedEnumTrait;
+
+    case streamChanged = 'stream';
+    case userChanged = 'user';
 }

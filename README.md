@@ -6,7 +6,7 @@
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mrgoodbytes8667/enum-serializer-bundle/release?label=stable&logo=github&logoColor=FFF&style=flat)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/mrgoodbytes8667/enum-serializer-bundle/tests?logo=github&logoColor=FFF&style=flat)
 [![codecov](https://img.shields.io/codecov/c/github/mrgoodbytes8667/enum-serializer-bundle?logo=codecov&logoColor=FFF&style=flat)](https://codecov.io/gh/mrgoodbytes8667/enum-serializer-bundle)  
-A bundle to enable [spatie/enum](https://github.com/spatie/enum) Serialization support in Symfony
+A bundle to provide some helper methods for PHP 8.1+ enums
 
 ## Installation
 

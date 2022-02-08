@@ -2,8 +2,10 @@
 
 namespace Bytes\EnumSerializerBundle\Serializer\Normalizer;
 
+use ArrayObject;
+use BackedEnum;
 use Bytes\EnumSerializerBundle\Enums\Enum;
-use Spatie\Enum\Enum as EnumParent;
+use JsonSerializable;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
@@ -16,6 +18,7 @@ use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use ValueError;
 
 /**
  * Class EnumNormalizer
@@ -30,7 +33,7 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
      * @param string|null $format Format the normalization result will be encoded as
      * @param array $context Context options for the normalizer
      *
-     * @return array|string|int|float|bool|\ArrayObject|null \ArrayObject is used to make sure an empty object is encoded as an object not an array
+     * @return array|string|int|float|bool|ArrayObject|null \ArrayObject is used to make sure an empty object is encoded as an object not an array
      *
      * @throws InvalidArgumentException   Occurs when the object given is not a supported type for the normalizer
      * @throws CircularReferenceException Occurs when the normalizer detects a circular reference when no circular
@@ -38,13 +41,13 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
      * @throws LogicException             Occurs when the normalizer is not called in an expected context
      * @throws ExceptionInterface         Occurs for all the other cases of errors
      */
-    public function normalize($object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    public function normalize($object, string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
     {
-        if ($object instanceof Enum) {
+        if ($object instanceof JsonSerializable) {
             return $object->jsonSerialize();
         } else {
             return [
-                'label' => $object->label,
+                'label' => $object->name,
                 'value' => $object->value
             ];
         }
@@ -61,7 +64,7 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
      */
     public function supportsNormalization($data, string $format = null, array $context = []): bool
     {
-        return $data instanceof EnumParent;
+        return $data instanceof BackedEnum;
     }
 
     /**
@@ -72,7 +75,7 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
      * @param string|null $format Format the given data was extracted from
      * @param array $context Options available to the denormalizer
      *
-     * @return EnumParent
+     * @return BackedEnum
      *
      * @throws BadMethodCallException   Occurs when the normalizer is not called in an expected context
      * @throws InvalidArgumentException Occurs when the arguments are not coherent or not supported
@@ -84,15 +87,15 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
      */
     public function denormalize($data, string $type, string $format = null, array $context = []): mixed
     {
-        if(is_array($data)) {
-            if(array_key_exists('value', $data)) {
+        if (is_array($data)) {
+            if (array_key_exists('value', $data)) {
                 $data = $data['value'];
             }
         }
         try {
-            return new $type($data);
-        } catch (BadMethodCallException | \TypeError $exception) {
-            throw new UnexpectedValueException(sprintf("The value %s is not a valid value for %s", is_string($data) || is_numeric($data) ? (string) $data : '...', $type));
+            return $type::from($data);
+        } catch (ValueError $exception) {
+            throw new UnexpectedValueException(sprintf("The value %s is not a valid value for %s", is_string($data) || is_numeric($data) ? (string)$data : '...', $type));
         }
     }
 
@@ -107,7 +110,7 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
      */
     public function supportsDenormalization($data, string $type, string $format = null): bool
     {
-        return is_subclass_of($type, EnumParent::class);
+        return is_subclass_of($type, BackedEnum::class);
     }
 
     /**

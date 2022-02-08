@@ -32,18 +32,4 @@ class FakerEnumProvider extends Base
         return $this->randomEnum($enum)->value;
     }
 
-    /**
-     * A random label of the enum you pass in.
-     *
-     * @param class-string<BackedEnum> $enum
-     * @deprecated since 1.6.1, this method is deprecated, there is no replacement.
-     *
-     * @return string
-     */
-    public function randomEnumLabel(string $enum): string
-    {
-        trigger_deprecation('mrgoodbytes8667/enum-serializer-bundle', '1.6.1', 'Using "%s" is deprecated, there is no replacement.', __METHOD__);
-        return $this->randomEnumValue($enum);
-    }
-
 }
