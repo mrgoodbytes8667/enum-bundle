@@ -10,14 +10,14 @@ A bundle to provide some helper methods for PHP 8.1+ enums inspired by [spatie/e
 
 ## Upgrading to 2.0
 Change all classes that extend `Bytes\EnumSerializerBundle\Enums\Enum` to be string backed enums, using the new
-`Bytes\EnumSerializerBundle\Enums\BackedEnumTrait` trait and implementing the new
-`Bytes\EnumSerializerBundle\Enums\BackedEnumInterface` interface.
+`Bytes\EnumSerializerBundle\Enums\StringBackedEnumTrait` trait and implementing the new
+`Bytes\EnumSerializerBundle\Enums\StringBackedEnumInterface` interface.
 
-- `Bytes\EnumSerializerBundle\Enums\BackedEnumTrait` provides the previous `Enum` class methods that are still relevant
+- `Bytes\EnumSerializerBundle\Enums\StringBackedEnumTrait` provides the previous `Enum` class methods that are still relevant
 and needed with the switch to enums, including a `jsonSerializable()` method to keep serialization consistent.
-- `Bytes\EnumSerializerBundle\Enums\BackedEnumInterface` must be implemented (or `\JsonSerializable`) in order to have
+- `Bytes\EnumSerializerBundle\Enums\StringBackedEnumInterface` must be implemented (or `\JsonSerializable`) in order to have
 the serializer properly return label/value as it did prior to 2.0.
-- Note: `Bytes\EnumSerializerBundle\Enums\BackedEnumInterface` extends both
+- Note: `Bytes\EnumSerializerBundle\Enums\StringBackedEnumInterface` extends both
 `Bytes\EnumSerializerBundle\Enums\EasyAdminChoiceEnumInterface` and
 `Bytes\EnumSerializerBundle\Enums\FormChoiceEnumInterfac`, which both automatically provide EasyAdminBundle and Symfony 
 form compatible choice methods and are easily overloadable.
@@ -61,12 +61,12 @@ class ValuesEnum extends Enum
 namespace Bytes\EnumSerializerBundle\Tests\Fixtures;
 
 
-use Bytes\EnumSerializerBundle\Enums\BackedEnumInterface;
-use Bytes\EnumSerializerBundle\Enums\BackedEnumTrait;
+use Bytes\EnumSerializerBundle\Enums\StringBackedEnumInterface;
+use Bytes\EnumSerializerBundle\Enums\StringBackedEnumTrait;
 
-enum ValuesEnum: string implements BackedEnumInterface
+enum ValuesEnum: string implements StringBackedEnumInterface
 {
-    use BackedEnumTrait;
+    use StringBackedEnumTrait;
 
     case streamChanged = 'stream';
     case userChanged = 'user';
@@ -82,13 +82,13 @@ enum ValuesEnum: string implements BackedEnumInterface
 namespace Bytes\EnumSerializerBundle\Tests\Fixtures;
 
 
-use Bytes\EnumSerializerBundle\Enums\BackedEnumInterface;
-use Bytes\EnumSerializerBundle\Enums\BackedEnumTrait;
+use Bytes\EnumSerializerBundle\Enums\StringBackedEnumInterface;
+use Bytes\EnumSerializerBundle\Enums\StringBackedEnumTrait;
 use JetBrains\PhpStorm\Deprecated;
 
-enum ValuesEnum: string implements BackedEnumInterface
+enum ValuesEnum: string implements StringBackedEnumInterface
 {
-    use BackedEnumTrait;
+    use StringBackedEnumTrait;
 
     case streamChanged = 'stream';
     case userChanged = 'user';
