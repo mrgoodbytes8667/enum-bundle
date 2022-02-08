@@ -2,6 +2,7 @@
 
 namespace Bytes\EnumSerializerBundle\Enums;
 
+use BackedEnum;
 use ValueError;
 use function Symfony\Component\String\u;
 
@@ -44,6 +45,20 @@ trait BackedEnumTrait
         } catch (ValueError $exception) {
             return false;
         }
+    }
+
+    public function equals(BackedEnum ...$others): bool
+    {
+        foreach ($others as $other) {
+            if (
+                get_class($this) === get_class($other)
+                && $this->value === $other->value
+            ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
