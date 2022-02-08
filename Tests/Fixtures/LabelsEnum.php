@@ -5,11 +5,10 @@ namespace Bytes\EnumSerializerBundle\Tests\Fixtures;
 
 
 use Bytes\EnumSerializerBundle\Enums\BackedEnumTrait;
-use JetBrains\PhpStorm\ArrayShape;
-use JetBrains\PhpStorm\Internal\TentativeType;
+use Bytes\EnumSerializerBundle\Enums\EasyAdminChoiceEnumInterface;
 use JsonSerializable;
 
-enum LabelsEnum: string implements JsonSerializable
+enum LabelsEnum: string implements EasyAdminChoiceEnumInterface, JsonSerializable
 {
     use BackedEnumTrait;
 

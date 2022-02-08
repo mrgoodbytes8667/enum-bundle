@@ -7,8 +7,6 @@ use function Symfony\Component\String\u;
 
 trait BackedEnumTrait
 {
-    use EnumTrait;
-
     /**
      * @return array<string>
      */
