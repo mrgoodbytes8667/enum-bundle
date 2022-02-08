@@ -2,7 +2,9 @@
 
 namespace Bytes\EnumSerializerBundle\Enums;
 
-interface EasyAdminChoiceEnumInterface extends BackedEnumInterface
+use BackedEnum;
+
+interface EasyAdminChoiceEnumInterface extends BackedEnum
 {
     /**
      * @return array<string>

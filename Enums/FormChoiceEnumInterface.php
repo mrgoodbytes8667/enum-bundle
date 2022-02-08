@@ -2,7 +2,9 @@
 
 namespace Bytes\EnumSerializerBundle\Enums;
 
-interface FormChoiceEnumInterface extends BackedEnumInterface
+use BackedEnum;
+
+interface FormChoiceEnumInterface extends BackedEnum
 {
     /**
      * @return array

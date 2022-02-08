@@ -13,12 +13,28 @@ trait BackedEnumTrait
      */
     public static function easyAdminChoices(): array
     {
+        return static::provideFormChoices();
+    }
+
+    /**
+     * @return array<string>
+     */
+    protected static function provideFormChoices(): array
+    {
         $return = [];
         foreach (static::cases() as $value) {
             $return[u($value->name)->lower()->replace('_', ' ')->title(true)->toString()] = $value->value;
         }
 
         return $return;
+    }
+
+    /**
+     * @return array<string>
+     */
+    public static function formChoices(): array
+    {
+        return static::provideFormChoices();
     }
 
     /**
