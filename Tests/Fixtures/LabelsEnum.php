@@ -4,27 +4,15 @@
 namespace Bytes\EnumSerializerBundle\Tests\Fixtures;
 
 
-use Spatie\Enum\Enum;
+use Bytes\EnumSerializerBundle\Enums\BackedEnumTrait;
+use JetBrains\PhpStorm\ArrayShape;
+use JetBrains\PhpStorm\Internal\TentativeType;
+use JsonSerializable;
 
-/**
- * Class LabelsEnum
- * @package Bytes\EnumSerializerBundle\Tests\Fixtures
- *
- * @method static self streamChanged()
- * @method static self userChanged()
- *
- * @link https://github.com/spatie/enum
- */
-class LabelsEnum extends Enum
+enum LabelsEnum: string implements JsonSerializable
 {
-    /**
-     * @return string[]
-     */
-    protected static function labels(): array
-    {
-        return [
-            'streamChanged' => 'stream',
-            'userChanged' => 'user',
-        ];
-    }
+    use BackedEnumTrait;
+
+    case streamChanged = 'stream';
+    case userChanged = 'user';
 }

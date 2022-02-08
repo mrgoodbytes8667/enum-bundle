@@ -4,7 +4,7 @@
 namespace Bytes\EnumSerializerBundle\Request;
 
 
-use Bytes\EnumSerializerBundle\Enums\Enum;
+use BackedEnum;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,6 +62,6 @@ class EnumParameterConverter implements ParamConverterInterface
             return false;
         }
 
-        return is_subclass_of($configuration->getClass(), Enum::class);
+        return is_subclass_of($configuration->getClass(), BackedEnum::class);
     }
 }

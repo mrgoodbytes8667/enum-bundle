@@ -2,11 +2,9 @@
 
 namespace Bytes\EnumSerializerBundle\Enums;
 
+use ValueError;
 use function Symfony\Component\String\u;
 
-/**
- * @method static array cases()
- */
 trait BackedEnumTrait
 {
     use EnumTrait;
@@ -32,5 +30,32 @@ trait BackedEnumTrait
         return array_map(function ($e) {
             return $e->value;
         }, static::cases());
+    }
+
+    /**
+     * Helper method to determine if a supplied value is an enum value
+     * @param string|int $value
+     *
+     * @return bool
+     */
+    public static function isValid($value): bool
+    {
+        try {
+            $enum = static::from($value);
+            return true;
+        } catch (ValueError $exception) {
+            return false;
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'label' => $this->name,
+            'value' => $this->value
+        ];
     }
 }

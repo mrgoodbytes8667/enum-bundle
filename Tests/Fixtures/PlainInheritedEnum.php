@@ -3,17 +3,12 @@
 
 namespace Bytes\EnumSerializerBundle\Tests\Fixtures;
 
-use Bytes\EnumSerializerBundle\Enums\Enum;
+use Bytes\EnumSerializerBundle\Enums\BackedEnumTrait;
 
-/**
- * Class PlainInheritedEnum
- * @package Bytes\EnumSerializerBundle\Tests\Fixtures
- *
- * @method static self channelCreate() Emitted whenever a channel is created.
- * @method static self channelDelete() Emitted whenever a channel is deleted.
- *
- * @link https://github.com/spatie/enum
- */
-class PlainInheritedEnum extends Enum
+enum PlainInheritedEnum: string
 {
+    use BackedEnumTrait;
+
+    case channelCreate = 'channelCreate'; // Emitted whenever a channel is created.
+    case channelDelete = 'channelDelete'; // Emitted whenever a channel is deleted.
 }
