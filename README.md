@@ -69,6 +69,42 @@ enum ValuesEnum: string implements BackedEnumInterface
 }
 ```
 
+#### With Optional Deprecated Replacement for PHPStorm
+
+```php
+<?php
+
+
+namespace Bytes\EnumSerializerBundle\Tests\Fixtures;
+
+
+use Bytes\EnumSerializerBundle\Enums\BackedEnumInterface;
+use Bytes\EnumSerializerBundle\Enums\BackedEnumTrait;
+use JetBrains\PhpStorm\Deprecated;
+
+enum ValuesEnum: string implements BackedEnumInterface
+{
+    use BackedEnumTrait;
+
+    case streamChanged = 'stream';
+    case userChanged = 'user';
+    
+    #[Deprecated(reason: 'since 1.7.0, use "%name%" instead.', replacement: '%class%::%name%')]
+    public static function streamChanged(): ValuesEnum
+    {
+        return ValuesEnum::streamChanged;
+    }
+    
+    #[Deprecated(reason: 'since 1.7.0, use "%name%" instead.', replacement: '%class%::%name%')]
+    public static function userChanged(): ValuesEnum
+    {
+        return ValuesEnum::userChanged;
+    }
+}
+```
+
+Note that the automated replacement will not remove the trailing `()` following the function
+
 ## Installation
 
 Make sure Composer is installed globally, as explained in the
