@@ -132,4 +132,15 @@ class EnumTest extends TestCase
         $this->expectException(ValueError::class);
         BackedEnum::normalizeToEnum('abc123');
     }
+
+    /**
+     * @dataProvider provideAll
+     * @param $enum
+     * @param $value
+     * @return void
+     */
+    public function testRandom($enum, $value)
+    {
+        $this->assertInstanceOf(\UnitEnum::class, BackedEnum::random());
+    }
 }
