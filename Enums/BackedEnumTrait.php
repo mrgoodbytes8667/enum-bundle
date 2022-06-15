@@ -3,6 +3,7 @@
 namespace Bytes\EnumSerializerBundle\Enums;
 
 use BackedEnum;
+use UnitEnum;
 use ValueError;
 use function Symfony\Component\String\u;
 
@@ -75,6 +76,15 @@ trait BackedEnumTrait
         }
 
         return false;
+    }
+
+    /**
+     * @return UnitEnum
+     */
+    public static function random(): UnitEnum {
+        $random = array_rand(static::cases());
+
+        return static::cases()[$random];
     }
 
     /**
