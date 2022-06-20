@@ -3,6 +3,7 @@
 namespace Bytes\EnumSerializerBundle\Enums;
 
 use BackedEnum;
+use UnitEnum;
 use ValueError;
 use function Symfony\Component\String\u;
 
@@ -25,10 +26,28 @@ trait BackedEnumTrait
     {
         $return = [];
         foreach (static::cases() as $value) {
-            $return[u($value->name)->lower()->replace('_', ' ')->title(true)->toString()] = $value->value;
+            $return[static::getFormChoiceKey($value)] = static::getFormChoiceValue($value);
         }
 
         return $return;
+    }
+
+    /**
+     * @param UnitEnum $value
+     * @return string
+     */
+    protected static function getFormChoiceKey(UnitEnum $value): string
+    {
+        return u($value->name)->lower()->replace('_', ' ')->title(true)->toString();
+    }
+
+    /**
+     * @param UnitEnum $value
+     * @return string
+     */
+    protected static function getFormChoiceValue(UnitEnum $value): string
+    {
+        return $value->value;
     }
 
     /**
