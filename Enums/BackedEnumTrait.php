@@ -7,6 +7,9 @@ use UnitEnum;
 use ValueError;
 use function Symfony\Component\String\u;
 
+/**
+ * @method static BackedEnum random()
+ */
 trait BackedEnumTrait
 {
     use UnitEnumTrait;
