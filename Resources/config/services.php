@@ -6,6 +6,8 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Bytes\EnumSerializerBundle\Request\EnumParameterConverter;
 use Bytes\EnumSerializerBundle\Serializer\Normalizer\EnumNormalizer;
+use Bytes\EnumSerializerBundle\Twig\EnumExtension;
+use Bytes\EnumSerializerBundle\Twig\EnumRuntime;
 
 /**
  * @param ContainerConfigurator $container
@@ -22,5 +24,11 @@ return static function (ContainerConfigurator $container) {
         ->tag('request.param_converter', [
             'converter' => 'bytes_enum'
         ]);
+
+    $services->set('bytesenumserializerbundle.enum_extension', EnumExtension::class)
+        ->tag('twig.extension');
+
+    $services->set('bytesenumserializerbundle.enum_runtime', EnumRuntime::class)
+        ->tag('twig.runtime');
 
 };
