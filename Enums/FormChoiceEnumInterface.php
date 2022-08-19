@@ -3,13 +3,24 @@
 namespace Bytes\EnumSerializerBundle\Enums;
 
 use BackedEnum;
-use JetBrains\PhpStorm\Deprecated;
+use UnitEnum;
 
 interface FormChoiceEnumInterface extends BackedEnum
 {
     /**
-     * @return array
+     * @return array<string>
      */
-    #[Deprecated('since 2.2, use provideFormChoices()', '%class%::provideFormChoices()')]
-    public static function formChoices(): array;
+    public static function provideFormChoices(): array;
+
+    /**
+     * @param UnitEnum $value
+     * @return string
+     */
+    public static function getFormChoiceKey(UnitEnum $value): string;
+
+    /**
+     * @param UnitEnum $value
+     * @return string
+     */
+    public static function getFormChoiceValue(UnitEnum $value): string;
 }

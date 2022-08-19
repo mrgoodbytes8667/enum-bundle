@@ -3,7 +3,6 @@
 namespace Bytes\EnumSerializerBundle\Enums;
 
 use BackedEnum;
-use JetBrains\PhpStorm\Deprecated;
 use UnitEnum;
 use ValueError;
 use function Symfony\Component\String\u;
@@ -18,16 +17,7 @@ trait BackedEnumTrait
     /**
      * @return array<string>
      */
-    #[Deprecated('since 2.2, use provideFormChoices()', '%class%::provideFormChoices()')]
-    public static function easyAdminChoices(): array
-    {
-        return static::provideFormChoices();
-    }
-
-    /**
-     * @return array<string>
-     */
-    protected static function provideFormChoices(): array
+    public static function provideFormChoices(): array
     {
         $return = [];
         foreach (static::cases() as $value) {
@@ -41,7 +31,7 @@ trait BackedEnumTrait
      * @param UnitEnum $value
      * @return string
      */
-    protected static function getFormChoiceKey(UnitEnum $value): string
+    public static function getFormChoiceKey(UnitEnum $value): string
     {
         return u($value->name)->lower()->replace('_', ' ')->title(true)->toString();
     }
@@ -50,18 +40,9 @@ trait BackedEnumTrait
      * @param UnitEnum $value
      * @return string
      */
-    protected static function getFormChoiceValue(UnitEnum $value): string
+    public static function getFormChoiceValue(UnitEnum $value): string
     {
         return $value->value;
-    }
-
-    /**
-     * @return array<string>
-     */
-    #[Deprecated('since 2.2, use provideFormChoices()', '%class%::provideFormChoices()')]
-    public static function formChoices(): array
-    {
-        return static::provideFormChoices();
     }
 
     /**

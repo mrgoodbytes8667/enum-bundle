@@ -9,6 +9,10 @@
 [![codecov](https://img.shields.io/codecov/c/github/mrgoodbytes8667/enum-serializer-bundle?logo=codecov&logoColor=FFF&style=flat)](https://codecov.io/gh/mrgoodbytes8667/enum-serializer-bundle)  
 A bundle to provide some helper methods for PHP 8.1+ enums inspired by [spatie/enum](https://github.com/spatie/enum)
 
+## Upgrading to 3.0 from 2.x
+- Replace the deprecated calls to `easyAdminChoices()` and `formChoices()` with `provideFormChoices()`.
+- Upgrade any overridden versions of `provideFormChoices()`, `getFormChoiceKey()`, and `getFormChoiceValue()` from `protected` to `public`.
+
 ## Upgrading to 2.0
 Change all classes that extend `Bytes\EnumSerializerBundle\Enums\Enum` to be string backed enums, using the new
 `Bytes\EnumSerializerBundle\Enums\StringBackedEnumTrait` trait and implementing the new
@@ -20,7 +24,7 @@ and needed with the switch to enums, including a `jsonSerializable()` method to 
 the serializer properly return label/value as it did prior to 2.0.
 - Note: `Bytes\EnumSerializerBundle\Enums\StringBackedEnumInterface` extends both
 `Bytes\EnumSerializerBundle\Enums\EasyAdminChoiceEnumInterface` and
-`Bytes\EnumSerializerBundle\Enums\FormChoiceEnumInterfac`, which both automatically provide EasyAdminBundle and Symfony 
+`Bytes\EnumSerializerBundle\Enums\FormChoiceEnumInterface`, which both automatically provide EasyAdminBundle and Symfony 
 form compatible choice methods and are easily overloadable.
 
 ### Before
