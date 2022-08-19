@@ -16,7 +16,8 @@
         "symfony/dependency-injection": "^5.2 | ^6.0",
         "symfony/framework-bundle": "^5.2 | ^6.0",
         "symfony/property-access": "^5.2 | ^6.0",
-        "symfony/serializer": "^5.2 | ^6.0"
+        "symfony/serializer": "^5.2 | ^6.0",
+        "twig/twig": "^2.12 | ^3.0"
     },
     "require-dev": {
         "ext-json": "*",
