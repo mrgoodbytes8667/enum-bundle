@@ -3,6 +3,7 @@
 namespace Bytes\EnumSerializerBundle\Enums;
 
 use BackedEnum;
+use JetBrains\PhpStorm\Deprecated;
 use UnitEnum;
 use ValueError;
 use function Symfony\Component\String\u;
@@ -17,6 +18,7 @@ trait BackedEnumTrait
     /**
      * @return array<string>
      */
+    #[Deprecated('since 2.2, use provideFormChoices()', '%class%::provideFormChoices()')]
     public static function easyAdminChoices(): array
     {
         return static::provideFormChoices();
@@ -56,6 +58,7 @@ trait BackedEnumTrait
     /**
      * @return array<string>
      */
+    #[Deprecated('since 2.2, use provideFormChoices()', '%class%::provideFormChoices()')]
     public static function formChoices(): array
     {
         return static::provideFormChoices();
@@ -87,6 +90,10 @@ trait BackedEnumTrait
         }
     }
 
+    /**
+     * @param BackedEnum ...$others
+     * @return bool
+     */
     public function equals(BackedEnum ...$others): bool
     {
         foreach ($others as $other) {
