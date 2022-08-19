@@ -11,6 +11,7 @@ A bundle to provide some helper methods for PHP 8.1+ enums inspired by [spatie/e
 
 ## Upgrading to 3.0 from 2.x
 - Replace the deprecated calls to `easyAdminChoices()` and `formChoices()` with `provideFormChoices()`.
+- Upgrade any overridden versions of `provideFormChoices()`, `getFormChoiceKey()`, and `getFormChoiceValue()` from `protected` to `public`.
 
 ## Upgrading to 2.0
 Change all classes that extend `Bytes\EnumSerializerBundle\Enums\Enum` to be string backed enums, using the new

@@ -17,7 +17,7 @@ trait BackedEnumTrait
     /**
      * @return array<string>
      */
-    protected static function provideFormChoices(): array
+    public static function provideFormChoices(): array
     {
         $return = [];
         foreach (static::cases() as $value) {
@@ -31,7 +31,7 @@ trait BackedEnumTrait
      * @param UnitEnum $value
      * @return string
      */
-    protected static function getFormChoiceKey(UnitEnum $value): string
+    public static function getFormChoiceKey(UnitEnum $value): string
     {
         return u($value->name)->lower()->replace('_', ' ')->title(true)->toString();
     }
@@ -40,7 +40,7 @@ trait BackedEnumTrait
      * @param UnitEnum $value
      * @return string
      */
-    protected static function getFormChoiceValue(UnitEnum $value): string
+    public static function getFormChoiceValue(UnitEnum $value): string
     {
         return $value->value;
     }
