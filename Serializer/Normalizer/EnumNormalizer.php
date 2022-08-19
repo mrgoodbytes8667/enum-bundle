@@ -92,6 +92,7 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
                 $data = $data['value'];
             }
         }
+        
         try {
             return $type::from($data);
         } catch (ValueError $exception) {
