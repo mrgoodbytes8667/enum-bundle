@@ -14,14 +14,6 @@ class EnumTest extends TestCase
     /**
      * @return void
      */
-    public function testEasyAdminChoices()
-    {
-        $this->assertCount(2, BackedEnum::easyAdminChoices());
-    }
-
-    /**
-     * @return void
-     */
     public function testValues()
     {
         $this->assertCount(2, BackedEnum::values());
@@ -82,8 +74,7 @@ class EnumTest extends TestCase
      */
     public function testChoices($choices)
     {
-        $this->assertEquals($choices, BackedEnum::easyAdminChoices());
-        $this->assertEquals($choices, BackedEnum::formChoices());
+        $this->assertEquals($choices, BackedEnum::provideFormChoices());
     }
 
     public function provideChoices()

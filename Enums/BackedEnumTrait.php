@@ -3,7 +3,6 @@
 namespace Bytes\EnumSerializerBundle\Enums;
 
 use BackedEnum;
-use JetBrains\PhpStorm\Deprecated;
 use UnitEnum;
 use ValueError;
 use function Symfony\Component\String\u;
@@ -14,15 +13,6 @@ use function Symfony\Component\String\u;
 trait BackedEnumTrait
 {
     use UnitEnumTrait;
-
-    /**
-     * @return array<string>
-     */
-    #[Deprecated('since 2.2, use provideFormChoices()', '%class%::provideFormChoices()')]
-    public static function easyAdminChoices(): array
-    {
-        return static::provideFormChoices();
-    }
 
     /**
      * @return array<string>
@@ -53,15 +43,6 @@ trait BackedEnumTrait
     protected static function getFormChoiceValue(UnitEnum $value): string
     {
         return $value->value;
-    }
-
-    /**
-     * @return array<string>
-     */
-    #[Deprecated('since 2.2, use provideFormChoices()', '%class%::provideFormChoices()')]
-    public static function formChoices(): array
-    {
-        return static::provideFormChoices();
     }
 
     /**
