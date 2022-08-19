@@ -2,7 +2,6 @@
 
 namespace Bytes\EnumSerializerBundle\Enums;
 
-use BackedEnum;
 use JsonSerializable;
 
 interface BackedEnumInterface extends EasyAdminChoiceEnumInterface, FormChoiceEnumInterface, JsonSerializable
@@ -19,10 +18,4 @@ interface BackedEnumInterface extends EasyAdminChoiceEnumInterface, FormChoiceEn
      * @return bool
      */
     public static function isValid($value): bool;
-
-    /**
-     * @param BackedEnum ...$others
-     * @return bool
-     */
-    public function equals(BackedEnum ...$others): bool;
 }
