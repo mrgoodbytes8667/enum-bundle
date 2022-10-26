@@ -28,12 +28,20 @@ trait BackedEnumTrait
     }
 
     /**
+     * @return string
+     */
+    public function formChoiceKey(): string
+    {
+        return u($this->name)->lower()->replace('_', ' ')->title(true)->toString();
+    }
+
+    /**
      * @param UnitEnum $value
      * @return string
      */
     public static function getFormChoiceKey(UnitEnum $value): string
     {
-        return u($value->name)->lower()->replace('_', ' ')->title(true)->toString();
+        return $value->formChoiceKey();
     }
 
     /**
