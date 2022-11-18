@@ -4,9 +4,11 @@ namespace Bytes\EnumSerializerBundle\Tests\Enums;
 
 use Bytes\EnumSerializerBundle\PhpUnit\EnumAssertions;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\BackedEnum;
+use Bytes\EnumSerializerBundle\Tests\Fixtures\IntBackedEnum;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\LabelsEnum;
 use Generator;
 use PHPUnit\Framework\TestCase;
+use UnitEnum;
 use ValueError;
 
 class EnumTest extends TestCase
@@ -26,6 +28,9 @@ class EnumTest extends TestCase
         $this->assertEquals('b', $value);
     }
 
+    /**
+     * @return void
+     */
     public function testEquals()
     {
         $this->assertTrue(BackedEnum::VALUE_A->equals(BackedEnum::VALUE_A));
@@ -68,6 +73,16 @@ class EnumTest extends TestCase
     }
 
     /**
+     * @return Generator
+     */
+    public function provideAllInt(): Generator
+    {
+        foreach (IntBackedEnum::cases() as $enum) {
+            yield $enum->value => ['enum' => $enum, 'value' => $enum->value];
+        }
+    }
+
+    /**
      * @dataProvider provideChoices
      * @param $choices
      * @return void
@@ -77,6 +92,9 @@ class EnumTest extends TestCase
         $this->assertEquals($choices, BackedEnum::provideFormChoices());
     }
 
+    /**
+     * @return Generator
+     */
     public function provideChoices()
     {
         yield 'choices' => [['Value A' => 'a', 'Value B' => 'b']];
@@ -94,12 +112,18 @@ class EnumTest extends TestCase
         $this->assertEquals($value, BackedEnum::normalizeToValue($enum));
     }
 
+    /**
+     * @return void
+     */
     public function testNormalizeToValueFailure()
     {
         $this->expectException(ValueError::class);
         BackedEnum::normalizeToValue('abc123');
     }
 
+    /**
+     * @return void
+     */
     public function testNormalizeToValueFailureWrongEnum()
     {
         $this->expectException(ValueError::class);
@@ -118,6 +142,9 @@ class EnumTest extends TestCase
         $this->assertEquals($enum, BackedEnum::normalizeToEnum($enum));
     }
 
+    /**
+     * @return void
+     */
     public function testNormalizeToEnumFailure()
     {
         $this->expectException(ValueError::class);
@@ -132,6 +159,57 @@ class EnumTest extends TestCase
      */
     public function testRandom($enum, $value)
     {
-        $this->assertInstanceOf(\UnitEnum::class, BackedEnum::random());
+        $this->assertInstanceOf(UnitEnum::class, BackedEnum::random());
+    }
+
+    /**
+     * @dataProvider provideAllInt
+     * @param $enum
+     * @param $value
+     * @return void
+     */
+    public function testNormalizeToIntEnumSuccess($enum, $value)
+    {
+        $this->assertEquals($enum, IntBackedEnum::normalizeToEnum($value));
+        $this->assertEquals($enum, IntBackedEnum::normalizeToEnum($enum));
+    }
+
+    /**
+     * @return void
+     */
+    public function testNormalizeToIntEnumFailure()
+    {
+        $this->expectException(ValueError::class);
+        IntBackedEnum::normalizeToEnum(9);
+    }
+
+    /**
+     * @dataProvider provideAllInt
+     * @param $enum
+     * @param $value
+     * @return void
+     */
+    public function testNormalizeToIntValueSuccess($enum, $value)
+    {
+        $this->assertEquals($value, IntBackedEnum::normalizeToValue($value));
+        $this->assertEquals($value, IntBackedEnum::normalizeToValue($enum));
+    }
+
+    /**
+     * @return void
+     */
+    public function testNormalizeToIntValueFailure()
+    {
+        $this->expectException(ValueError::class);
+        IntBackedEnum::normalizeToValue(9);
+    }
+
+    /**
+     * @return void
+     */
+    public function testNormalizeToIntValueFailureWrongEnum()
+    {
+        $this->expectException(ValueError::class);
+        IntBackedEnum::normalizeToValue(LabelsEnum::userChanged);
     }
 }
