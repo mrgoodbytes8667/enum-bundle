@@ -4,7 +4,6 @@
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 
-use Bytes\EnumSerializerBundle\Request\EnumParameterConverter;
 use Bytes\EnumSerializerBundle\Serializer\Normalizer\EnumNormalizer;
 use Bytes\EnumSerializerBundle\Twig\EnumExtension;
 use Bytes\EnumSerializerBundle\Twig\EnumRuntime;
@@ -19,11 +18,6 @@ return static function (ContainerConfigurator $container) {
     $services->set('bytesenumserializerbundle.enumnormalizer', EnumNormalizer::class)
         ->tag('serializer.normalizer')
         ->args([service('serializer.normalizer.object')]);
-
-    $services->set('bytesenumserializerbundle.enum_parameter_converter', EnumParameterConverter::class)
-        ->tag('request.param_converter', [
-            'converter' => 'bytes_enum'
-        ]);
 
     $services->set('bytesenumserializerbundle.enum_extension', EnumExtension::class)
         ->tag('twig.extension');
