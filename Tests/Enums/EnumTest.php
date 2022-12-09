@@ -101,6 +101,24 @@ class EnumTest extends TestCase
     }
 
     /**
+     * @dataProvider provideEnumChoices
+     * @param $choices
+     * @return void
+     */
+    public function testEnumChoices($choices)
+    {
+        $this->assertEquals($choices, BackedEnum::provideFormEnums());
+    }
+
+    /**
+     * @return Generator
+     */
+    public function provideEnumChoices()
+    {
+        yield 'choices' => [['Value A' => BackedEnum::VALUE_A, 'Value B' => BackedEnum::VALUE_B]];
+    }
+
+    /**
      * @dataProvider provideAll
      * @param $enum
      * @param $value
