@@ -174,6 +174,80 @@ class EnumTest extends TestCase
         BackedEnum::normalizeToEnum('abc123');
     }
 
+
+
+
+
+
+    /**
+     * @dataProvider provideAll
+     * @param $enum
+     * @param $value
+     * @return void
+     */
+    public function testTryNormalizeToValueSuccess($enum, $value)
+    {
+        $this->assertEquals($value, BackedEnum::tryNormalizeToValue($value));
+        $this->assertEquals($value, BackedEnum::tryNormalizeToValue($enum));
+    }
+
+    /**
+     * @return void
+     */
+    public function testTryNormalizeToValueFailure()
+    {
+        $this->assertNull(BackedEnum::tryNormalizeToValue('abc123'));
+    }
+
+    /**
+     * @return void
+     */
+    public function testTryNormalizeToValueFailureWrongEnum()
+    {
+        $this->assertNull(BackedEnum::tryNormalizeToValue(LabelsEnum::userChanged));
+    }
+
+    /**
+     * @dataProvider provideAll
+     * @param $enum
+     * @param $value
+     * @return void
+     */
+    public function testTryNormalizeToEnumSuccess($enum, $value)
+    {
+        $this->assertEquals($enum, BackedEnum::tryNormalizeToEnum($value));
+        $this->assertEquals($enum, BackedEnum::tryNormalizeToEnum($enum));
+    }
+
+    /**
+     * @return void
+     */
+    public function testTryNormalizeToEnumFailure()
+    {
+        $this->assertNull(BackedEnum::tryNormalizeToEnum('abc123'));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * @dataProvider provideAll
      * @param $enum
@@ -234,5 +308,56 @@ class EnumTest extends TestCase
     {
         $this->expectException(ValueError::class);
         IntBackedEnum::normalizeToValue(LabelsEnum::userChanged);
+    }
+
+
+
+
+    /**
+     * @dataProvider provideAllInt
+     * @param $enum
+     * @param $value
+     * @return void
+     */
+    public function testTryNormalizeToIntEnumSuccess($enum, $value)
+    {
+        $this->assertEquals($enum, IntBackedEnum::tryNormalizeToEnum($value));
+        $this->assertEquals($enum, IntBackedEnum::tryNormalizeToEnum($enum));
+    }
+
+    /**
+     * @return void
+     */
+    public function testTryNormalizeToIntEnumFailure()
+    {
+        $this->assertNull(IntBackedEnum::tryNormalizeToEnum(9));
+    }
+
+    /**
+     * @dataProvider provideAllInt
+     * @param $enum
+     * @param $value
+     * @return void
+     */
+    public function testTryNormalizeToIntValueSuccess($enum, $value)
+    {
+        $this->assertEquals($value, IntBackedEnum::tryNormalizeToValue($value));
+        $this->assertEquals($value, IntBackedEnum::tryNormalizeToValue($enum));
+    }
+
+    /**
+     * @return void
+     */
+    public function testTryNormalizeToIntValueFailure()
+    {
+        $this->assertNull(IntBackedEnum::tryNormalizeToValue(9));
+    }
+
+    /**
+     * @return void
+     */
+    public function testTryNormalizeToIntValueFailureWrongEnum()
+    {
+        $this->assertNull(IntBackedEnum::tryNormalizeToValue(LabelsEnum::userChanged));
     }
 }
