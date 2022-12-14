@@ -20,4 +20,16 @@ interface IntBackedEnumInterface extends BackedEnumInterface
      * @throws ValueError
      */
     public static function normalizeToEnum(BackedEnum|int $value): static;
+
+    /**
+     * @param BackedEnum|int $value
+     * @return int|null
+     */
+    public static function tryNormalizeToValue(BackedEnum|int $value): ?int;
+
+    /**
+     * @param BackedEnum|int $value
+     * @return static|null
+     */
+    public static function tryNormalizeToEnum(BackedEnum|int $value): ?static;
 }
