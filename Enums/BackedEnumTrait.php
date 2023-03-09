@@ -15,12 +15,13 @@ trait BackedEnumTrait
     use UnitEnumTrait;
 
     /**
-     * @return array<string>
+     * @param array<BackedEnum> $cases
+     * @return array<string, string>
      */
-    public static function provideFormChoices(): array
+    public static function provideFormChoices(?array $cases = null): array
     {
         $return = [];
-        foreach (static::cases() as $value) {
+        foreach (($cases ?? static::cases()) as $value) {
             $return[static::getFormChoiceKey($value)] = static::getFormChoiceValue($value);
         }
 
@@ -29,14 +30,15 @@ trait BackedEnumTrait
 
     /**
      * For usage in EasyAdminBundle until such time that #4988 is resolved
+     * @param array<BackedEnum> $cases
      * @return array<string, static>
      *
      * @link https://github.com/EasyCorp/EasyAdminBundle/pull/4988
      */
-    public static function provideFormEnums(): array
+    public static function provideFormEnums(?array $cases = null): array
     {
         $return = [];
-        foreach (static::cases() as $value) {
+        foreach (($cases ?? static::cases()) as $value) {
             $return[static::getFormChoiceKey($value)] = $value;
         }
 

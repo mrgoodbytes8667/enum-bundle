@@ -101,6 +101,30 @@ class EnumTest extends TestCase
     }
 
     /**
+     * @dataProvider providePartialChoices
+     * @param array<string, string> $manualValue
+     * @param array<string, BackedEnum> $manualEnum
+     * @param BackedEnum[]|null $enum
+     * @return void
+     */
+    public function testPartialChoices($manualValue, $manualEnum, $enum): void
+    {
+        $this->assertEquals($manualValue, BackedEnum::provideFormChoices($enum));
+    }
+
+    /**
+     * @return Generator
+     */
+    public function providePartialChoices(): Generator
+    {
+        yield 'A' => ['manualValue' => ['Value A' => 'a'], 'manualEnum' => ['Value A' => BackedEnum::VALUE_A], 'enum' => [BackedEnum::VALUE_A]];
+        yield 'B' => ['manualValue' => ['Value B' => 'b'], 'manualEnum' => ['Value B' => BackedEnum::VALUE_B], 'enum' => [BackedEnum::VALUE_B]];
+        yield 'All' => ['manualValue' => ['Value A' => 'a', 'Value B' => 'b'], 'manualEnum' => ['Value A' => BackedEnum::VALUE_A, 'Value B' => BackedEnum::VALUE_B], 'enum' => BackedEnum::cases()];
+        yield 'null' => ['manualValue' => ['Value A' => 'a', 'Value B' => 'b'], 'manualEnum' => ['Value A' => BackedEnum::VALUE_A, 'Value B' => BackedEnum::VALUE_B], 'enum' => null];
+        yield 'empty' => ['manualValue' => [], 'manualEnum' => [], 'enum' => []];
+    }
+
+    /**
      * @dataProvider provideEnumChoices
      * @param $choices
      * @return void
@@ -116,6 +140,18 @@ class EnumTest extends TestCase
     public function provideEnumChoices()
     {
         yield 'choices' => [['Value A' => BackedEnum::VALUE_A, 'Value B' => BackedEnum::VALUE_B]];
+    }
+
+    /**
+     * @dataProvider providePartialChoices
+     * @param array<string, string> $manualValue
+     * @param array<string, BackedEnum> $manualEnum
+     * @param BackedEnum[]|null $enum
+     * @return void
+     */
+    public function testPartialEnumChoices($manualValue, $manualEnum, $enum)
+    {
+        $this->assertEquals($manualEnum, BackedEnum::provideFormEnums($enum));
     }
 
     /**
