@@ -15,12 +15,13 @@ trait BackedEnumTrait
     use UnitEnumTrait;
 
     /**
-     * @return array<string>
+     * @param array<BackedEnum> $cases
+     * @return array<string, string>
      */
-    public static function provideFormChoices(): array
+    public static function provideFormChoices(?array $cases = null): array
     {
         $return = [];
-        foreach (static::cases() as $value) {
+        foreach (($cases ?? static::cases()) as $value) {
             $return[static::getFormChoiceKey($value)] = static::getFormChoiceValue($value);
         }
 

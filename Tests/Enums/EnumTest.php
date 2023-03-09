@@ -101,6 +101,29 @@ class EnumTest extends TestCase
     }
 
     /**
+     * @dataProvider providePartialChoices
+     * @param array<string, string> $manualValue
+     * @param BackedEnum[]|null $enum
+     * @return void
+     */
+    public function testPartialChoices($manualValue, $enum): void
+    {
+        $this->assertEquals($manualValue, BackedEnum::provideFormChoices($enum));
+    }
+
+    /**
+     * @return Generator
+     */
+    public function providePartialChoices(): Generator
+    {
+        yield 'A' => ['manualValue' => ['Value A' => 'a'], 'enum' => [BackedEnum::VALUE_A]];
+        yield 'B' => ['manualValue' => ['Value B' => 'b'], 'enum' => [BackedEnum::VALUE_B]];
+        yield 'All' => ['manualValue' => ['Value A' => 'a', 'Value B' => 'b'], 'enum' => BackedEnum::cases()];
+        yield 'null' => ['manualValue' => ['Value A' => 'a', 'Value B' => 'b'], 'enum' => null];
+        yield 'empty' => ['manualValue' => [], 'enum' => []];
+    }
+
+    /**
      * @dataProvider provideAll
      * @param $enum
      * @param $value
