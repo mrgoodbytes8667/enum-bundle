@@ -4,7 +4,6 @@ namespace Bytes\EnumSerializerBundle\Serializer\Normalizer;
 
 use ArrayObject;
 use BackedEnum;
-use Bytes\EnumSerializerBundle\Enums\Enum;
 use JsonSerializable;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\CircularReferenceException;
@@ -92,7 +91,7 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
                 $data = $data['value'];
             }
         }
-        
+
         try {
             return $type::from($data);
         } catch (ValueError $exception) {
@@ -112,6 +111,28 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
     public function supportsDenormalization($data, string $type, string $format = null): bool
     {
         return is_subclass_of($type, BackedEnum::class);
+    }
+
+    /**
+     * Returns the types potentially supported by this denormalizer.
+     *
+     * For each supported formats (if applicable), the supported types should be
+     * returned as keys, and each type should be mapped to a boolean indicating
+     * if the result of supportsDenormalization() can be cached or not
+     * (a result cannot be cached when it depends on the context or on the data.)
+     * A null value means that the denormalizer does not support the corresponding
+     * type.
+     *
+     * Use type "object" to match any classes or interfaces,
+     * and type "*" to match any types.
+     *
+     * @return array<class-string|'*'|'object'|string, bool|null>
+     */
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            BackedEnum::class => true
+        ];
     }
 
     /**
