@@ -3,6 +3,7 @@
 namespace Bytes\EnumSerializerBundle\Enums;
 
 use BackedEnum;
+use TypeError;
 use UnitEnum;
 use ValueError;
 use function Symfony\Component\String\u;
@@ -92,7 +93,9 @@ trait BackedEnumTrait
         try {
             $enum = static::from($value);
             return true;
-        } catch (ValueError $exception) {
+        } catch (ValueError) {
+            return false;
+        } catch (TypeError) {
             return false;
         }
     }

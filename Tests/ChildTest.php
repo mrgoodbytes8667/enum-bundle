@@ -4,6 +4,8 @@
 namespace Bytes\EnumSerializerBundle\Tests;
 
 
+use Bytes\EnumSerializerBundle\Tests\Fixtures\BackedEnum;
+use Bytes\EnumSerializerBundle\Tests\Fixtures\IntBackedEnum;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\PlainInheritedEnum;
 
 class ChildTest extends TestSerializationCase
@@ -18,5 +20,10 @@ class ChildTest extends TestSerializationCase
 
         $this->assertTrue(PlainInheritedEnum::isValid('channelCreate'));
         $this->assertFalse(PlainInheritedEnum::isValid('abcdefg'));
+
+        $this->assertFalse(PlainInheritedEnum::isValid(-1));
+
+        $this->assertFalse(IntBackedEnum::isValid('abc123'));
+        $this->assertFalse(BackedEnum::isValid(-1));
     }
 }
