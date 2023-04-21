@@ -8,11 +8,113 @@ use Bytes\EnumSerializerBundle\Tests\Fixtures\IntBackedEnum;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\LabelsEnum;
 use Generator;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 use UnitEnum;
 use ValueError;
 
 class EnumTest extends TestCase
 {
+    /**
+     * @return Generator
+     */
+    public static function provideNormalizeToEnumsString()
+    {
+        yield ['input' => ['a'], 'expected' => [BackedEnum::VALUE_A]];
+        yield ['input' => [BackedEnum::VALUE_A], 'expected' => [BackedEnum::VALUE_A]];
+        yield ['input' => ['a', 'b', BackedEnum::VALUE_A], 'expected' => [BackedEnum::VALUE_A, BackedEnum::VALUE_B, BackedEnum::VALUE_A]];
+        yield ['input' => ['a', 'b', null, BackedEnum::VALUE_A], 'expected' => [BackedEnum::VALUE_A, BackedEnum::VALUE_B, BackedEnum::VALUE_A]];
+        yield ['input' => [BackedEnum::VALUE_A, ['a', 'b', BackedEnum::VALUE_A], BackedEnum::VALUE_B], 'expected' => [BackedEnum::VALUE_A, BackedEnum::VALUE_A, BackedEnum::VALUE_B, BackedEnum::VALUE_A, BackedEnum::VALUE_B]];
+        yield ['input' => [], 'expected' => []];
+        yield ['input' => [null], 'expected' => []];
+    }
+
+    /**
+     * @return Generator
+     */
+    public static function provideNormalizeToEnumsStringInvalidValue()
+    {
+        yield ['input' => ['c'], 'expected' => []];
+        yield ['input' => ['a', 'c', BackedEnum::VALUE_A], 'expected' => [BackedEnum::VALUE_A, BackedEnum::VALUE_A]];
+        yield ['input' => ['a', 'c', null, BackedEnum::VALUE_A], 'expected' => [BackedEnum::VALUE_A, BackedEnum::VALUE_A]];
+        yield ['input' => [BackedEnum::VALUE_A, ['a', 'c', BackedEnum::VALUE_A], BackedEnum::VALUE_B], 'expected' => [BackedEnum::VALUE_A, BackedEnum::VALUE_A, BackedEnum::VALUE_A, BackedEnum::VALUE_B]];
+    }
+
+    /**
+     * @return Generator
+     */
+    public static function provideNormalizeToValuesString()
+    {
+        yield ['input' => ['a'], 'expected' => ['a']];
+        yield ['input' => [BackedEnum::VALUE_A], 'expected' => ['a']];
+        yield ['input' => ['a', 'b', BackedEnum::VALUE_A], 'expected' => ['a', 'b', 'a']];
+        yield ['input' => ['a', 'b', null, BackedEnum::VALUE_A], 'expected' => ['a', 'b', 'a']];
+        yield ['input' => [BackedEnum::VALUE_A, ['a', 'b', BackedEnum::VALUE_A], BackedEnum::VALUE_B], 'expected' => ['a', 'a', 'b', 'a', 'b']];
+        yield ['input' => [], 'expected' => []];
+        yield ['input' => [null], 'expected' => []];
+    }
+
+    /**
+     * @return Generator
+     */
+    public static function provideNormalizeToValuesStringInvalidValue()
+    {
+        yield ['input' => ['c'], 'expected' => []];
+        yield ['input' => ['a', 'c', BackedEnum::VALUE_A], 'expected' => ['a', 'a']];
+        yield ['input' => ['a', 'c', null, BackedEnum::VALUE_A], 'expected' => ['a', 'a']];
+        yield ['input' => [BackedEnum::VALUE_A, ['a', 'c', BackedEnum::VALUE_A], BackedEnum::VALUE_B], 'expected' => ['a', 'a', 'a', 'b']];
+    }
+
+    /**
+     * @return Generator
+     */
+    public static function provideNormalizeToEnumsInt()
+    {
+        yield ['input' => [0], 'expected' => [IntBackedEnum::zero]];
+        yield ['input' => [IntBackedEnum::zero], 'expected' => [IntBackedEnum::zero]];
+        yield ['input' => [0, 1, IntBackedEnum::zero], 'expected' => [IntBackedEnum::zero, IntBackedEnum::one, IntBackedEnum::zero]];
+        yield ['input' => [0, 1, null, IntBackedEnum::zero], 'expected' => [IntBackedEnum::zero, IntBackedEnum::one, IntBackedEnum::zero]];
+        yield ['input' => [IntBackedEnum::zero, [0, 1, IntBackedEnum::zero], IntBackedEnum::one], 'expected' => [IntBackedEnum::zero, IntBackedEnum::zero, IntBackedEnum::one, IntBackedEnum::zero, IntBackedEnum::one]];
+        yield ['input' => [], 'expected' => []];
+        yield ['input' => [null], 'expected' => []];
+    }
+
+    /**
+     * @return Generator
+     */
+    public static function provideNormalizeToEnumsIntInvalidValue()
+    {
+        yield ['input' => [999], 'expected' => []];
+        yield ['input' => [0, 999, IntBackedEnum::zero], 'expected' => [IntBackedEnum::zero, IntBackedEnum::zero]];
+        yield ['input' => [0, 999, null, IntBackedEnum::zero], 'expected' => [IntBackedEnum::zero, IntBackedEnum::zero]];
+        yield ['input' => [IntBackedEnum::zero, [0, 999, IntBackedEnum::zero], IntBackedEnum::one], 'expected' => [IntBackedEnum::zero, IntBackedEnum::zero, IntBackedEnum::zero, IntBackedEnum::one]];
+    }
+
+    /**
+     * @return Generator
+     */
+    public static function provideNormalizeToValuesInt()
+    {
+        yield ['input' => [0], 'expected' => [0]];
+        yield ['input' => ['0'], 'expected' => [0]];
+        yield ['input' => [IntBackedEnum::zero], 'expected' => [0]];
+        yield ['input' => [0, 1, IntBackedEnum::zero], 'expected' => [0, 1, 0]];
+        yield ['input' => [0, 1, null, IntBackedEnum::zero], 'expected' => [0, 1, 0]];
+        yield ['input' => [IntBackedEnum::zero, [0, 1, IntBackedEnum::zero], IntBackedEnum::one], 'expected' => [0, 0, 1, 0, 1]];
+        yield ['input' => [], 'expected' => []];
+        yield ['input' => [null], 'expected' => []];
+    }
+
+    /**
+     * @return Generator
+     */
+    public static function provideNormalizeToValuesIntInvalidValue()
+    {
+        yield ['input' => [999], 'expected' => []];
+        yield ['input' => [0, 999, IntBackedEnum::zero, '999'], 'expected' => [0, 0]];
+        yield ['input' => [0, 999, null, IntBackedEnum::zero], 'expected' => [0, 0]];
+        yield ['input' => [IntBackedEnum::zero, [0, 999, IntBackedEnum::zero], IntBackedEnum::one], 'expected' => [0, 0, 0, 1]];
+    }
+
     /**
      * @return void
      */
@@ -205,11 +307,6 @@ class EnumTest extends TestCase
         BackedEnum::normalizeToEnum('abc123');
     }
 
-
-
-
-
-
     /**
      * @dataProvider provideAll
      * @param $enum
@@ -257,27 +354,6 @@ class EnumTest extends TestCase
     {
         $this->assertNull(BackedEnum::tryNormalizeToEnum('abc123'));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * @dataProvider provideAll
@@ -341,9 +417,6 @@ class EnumTest extends TestCase
         IntBackedEnum::normalizeToValue(LabelsEnum::userChanged);
     }
 
-
-
-
     /**
      * @dataProvider provideAllInt
      * @param $enum
@@ -390,5 +463,165 @@ class EnumTest extends TestCase
     public function testTryNormalizeToIntValueFailureWrongEnum()
     {
         $this->assertNull(IntBackedEnum::tryNormalizeToValue(LabelsEnum::userChanged));
+    }
+
+    /**
+     * @dataProvider provideNormalizeToEnumsString
+     * @param $input
+     * @param $expected
+     * @return void
+     */
+    public function testNormalizeToEnumsString($input, $expected)
+    {
+        self::assertEquals($expected, BackedEnum::normalizeToEnums(...$input));
+    }
+
+    /**
+     * @dataProvider provideNormalizeToEnumsStringInvalidValue
+     * @param $input
+     * @return void
+     */
+    public function testNormalizeToEnumsStringInvalidValue($input)
+    {
+        self::expectException(ValueError::class);
+        BackedEnum::normalizeToEnums(...$input);
+    }
+
+    /**
+     * @dataProvider provideNormalizeToEnumsString
+     * @dataProvider provideNormalizeToEnumsStringInvalidValue
+     * @param $input
+     * @param $expected
+     * @return void
+     */
+    public function testTryNormalizeToEnumsString($input, $expected)
+    {
+        self::assertEquals($expected, BackedEnum::tryNormalizeToEnums(...$input));
+    }
+
+    /**
+     * @dataProvider provideNormalizeToValuesString
+     * @param $input
+     * @param $expected
+     * @return void
+     */
+    public function testNormalizeToValuesString($input, $expected)
+    {
+        self::assertEquals($expected, BackedEnum::normalizeToValues(...$input));
+    }
+
+    /**
+     * @dataProvider provideNormalizeToValuesStringInvalidValue
+     * @param $input
+     * @return void
+     */
+    public function testNormalizeToValuesStringInvalidValue($input)
+    {
+        self::expectException(ValueError::class);
+        BackedEnum::normalizeToValues(...$input);
+    }
+
+    /**
+     * @dataProvider provideNormalizeToValuesString
+     * @dataProvider provideNormalizeToValuesStringInvalidValue
+     * @param $input
+     * @param $expected
+     * @return void
+     */
+    public function testTryNormalizeToValuesString($input, $expected)
+    {
+        self::assertEquals($expected, BackedEnum::tryNormalizeToValues(...$input));
+    }
+
+    /**
+     * @dataProvider provideNormalizeToEnumsInt
+     * @param $input
+     * @param $expected
+     * @return void
+     */
+    public function testNormalizeToEnumsInt($input, $expected)
+    {
+        self::assertEquals($expected, IntBackedEnum::normalizeToEnums(...$input));
+    }
+
+    /**
+     * @dataProvider provideNormalizeToEnumsIntInvalidValue
+     * @param $input
+     * @return void
+     */
+    public function testNormalizeToEnumsIntInvalidValue($input)
+    {
+        self::expectException(ValueError::class);
+        IntBackedEnum::normalizeToEnums(...$input);
+    }
+
+    /**
+     * @dataProvider provideNormalizeToEnumsInt
+     * @dataProvider provideNormalizeToEnumsIntInvalidValue
+     * @param $input
+     * @param $expected
+     * @return void
+     */
+    public function testTryNormalizeToEnumsInt($input, $expected)
+    {
+        self::assertEquals($expected, IntBackedEnum::tryNormalizeToEnums(...$input));
+    }
+
+    /**
+     * @dataProvider provideNormalizeToValuesInt
+     * @param $input
+     * @param $expected
+     * @return void
+     */
+    public function testNormalizeToValuesInt($input, $expected)
+    {
+        self::assertEquals($expected, IntBackedEnum::normalizeToValues(...$input));
+    }
+
+    /**
+     * @dataProvider provideNormalizeToValuesIntInvalidValue
+     * @param $input
+     * @return void
+     */
+    public function testNormalizeToValuesIntInvalidValue($input)
+    {
+        self::expectException(ValueError::class);
+        IntBackedEnum::normalizeToValues(...$input);
+    }
+
+    /**
+     * @return void
+     */
+    public function testNormalizeToValuesIntInvalidType()
+    {
+        self::expectException(TypeError::class);
+        IntBackedEnum::normalizeToValues(['c']);
+    }
+
+    /**
+     * @dataProvider provideNormalizeToValuesInt
+     * @dataProvider provideNormalizeToValuesIntInvalidValue
+     * @param $input
+     * @param $expected
+     * @return void
+     */
+    public function testTryNormalizeToValuesInt($input, $expected)
+    {
+        self::assertEquals($expected, IntBackedEnum::tryNormalizeToValues(...$input));
+    }
+
+    /**
+     * @return void
+     */
+    public function testNormalizeToValuesNull()
+    {
+        self::assertEquals([], BackedEnum::normalizeToValues());
+        self::assertEquals([], BackedEnum::normalizeToValues(null));
+        self::assertEquals([], BackedEnum::tryNormalizeToValues());
+        self::assertEquals([], BackedEnum::tryNormalizeToValues(null));
+        self::assertEquals([], IntBackedEnum::normalizeToValues());
+        self::assertEquals([], IntBackedEnum::normalizeToValues(null));
+        self::assertEquals([], IntBackedEnum::tryNormalizeToValues());
+        self::assertEquals([], IntBackedEnum::tryNormalizeToValues(null));
     }
 }

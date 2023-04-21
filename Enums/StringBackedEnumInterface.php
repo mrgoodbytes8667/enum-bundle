@@ -32,4 +32,32 @@ interface StringBackedEnumInterface extends BackedEnumInterface
      * @return static|null
      */
     public static function tryNormalizeToEnum(BackedEnum|string $value): ?static;
+
+    /**
+     * Returns an array of normalized enums, skipping any null values
+     * @param BackedEnum|string|array|null ...$values
+     * @return static[]
+     */
+    public static function normalizeToEnums(BackedEnum|string|array|null ...$values): array;
+
+    /**
+     * Returns an array of normalized enums, skipping any null values
+     * @param BackedEnum|string|array|null ...$values
+     * @return static[]
+     */
+    public static function tryNormalizeToEnums(BackedEnum|string|array|null ...$values): array;
+
+    /**
+     * Returns an array of normalized values, skipping any null values
+     * @param BackedEnum|string|array|null ...$values
+     * @return string[]
+     */
+    public static function normalizeToValues(BackedEnum|string|array|null ...$values): array;
+
+    /**
+     * Returns an array of normalized values, skipping any null values
+     * @param BackedEnum|string|array|null ...$values
+     * @return string[]
+     */
+    public static function tryNormalizeToValues(BackedEnum|string|array|null ...$values): array;
 }
