@@ -37,7 +37,11 @@ trait StringBackedEnumTrait
             return $value;
         }
 
-        return static::from($value);
+        try {
+            return static::from($value);
+        } catch (ValueError) {
+            return static::fromName($value);
+        }
     }
 
 
@@ -66,7 +70,7 @@ trait StringBackedEnumTrait
             return $value;
         }
 
-        return static::tryFrom($value);
+        return static::tryFrom($value) ?? static::tryFromName($value);
     }
 
     /**
