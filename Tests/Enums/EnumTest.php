@@ -6,6 +6,7 @@ use Bytes\EnumSerializerBundle\PhpUnit\EnumAssertions;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\BackedEnum;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\IntBackedEnum;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\LabelsEnum;
+use Bytes\EnumSerializerBundle\Tests\Fixtures\UnbackedEnum;
 use Generator;
 use PHPUnit\Framework\TestCase;
 use TypeError;
@@ -26,6 +27,7 @@ class EnumTest extends TestCase
         yield ['input' => [BackedEnum::VALUE_A, ['a', 'b', BackedEnum::VALUE_A], BackedEnum::VALUE_B], 'expected' => [BackedEnum::VALUE_A, BackedEnum::VALUE_A, BackedEnum::VALUE_B, BackedEnum::VALUE_A, BackedEnum::VALUE_B]];
         yield ['input' => [], 'expected' => []];
         yield ['input' => [null], 'expected' => []];
+        yield ['input' => ['VALUE_A'], 'expected' => [BackedEnum::VALUE_A]];
     }
 
     /**
@@ -314,6 +316,7 @@ class EnumTest extends TestCase
     {
         $this->assertEquals($enum, BackedEnum::tryNormalizeToEnum($value));
         $this->assertEquals($enum, BackedEnum::tryNormalizeToEnum($enum));
+        self::assertEquals($enum, BackedEnum::tryNormalizeToEnum($enum->name));
     }
 
     /**
@@ -592,5 +595,19 @@ class EnumTest extends TestCase
         self::assertEquals([], IntBackedEnum::normalizeToValues(null));
         self::assertEquals([], IntBackedEnum::tryNormalizeToValues());
         self::assertEquals([], IntBackedEnum::tryNormalizeToValues(null));
+    }
+
+    public function testFromName() {
+        self::assertEquals(BackedEnum::VALUE_A, BackedEnum::fromName('VALUE_A'));
+        self::assertEquals(BackedEnum::VALUE_B, BackedEnum::fromName('VALUE_B'));
+        self::assertEquals(UnbackedEnum::A, UnbackedEnum::fromName('A'));
+    }
+
+    public function testTryFromName() {
+        self::assertEquals(BackedEnum::VALUE_A, BackedEnum::tryFromName('VALUE_A'));
+        self::assertEquals(BackedEnum::VALUE_B, BackedEnum::tryFromName('VALUE_B'));
+        self::assertEquals(UnbackedEnum::A,   UnbackedEnum::tryFromName('A'));
+        self::assertNull(BackedEnum::tryFromName('VALUE_C'));
+        self::assertNull(UnbackedEnum::tryFromName('VALUE_C'));
     }
 }
