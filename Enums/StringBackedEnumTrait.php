@@ -3,6 +3,7 @@
 namespace Bytes\EnumSerializerBundle\Enums;
 
 use BackedEnum;
+use Illuminate\Support\Arr;
 use ValueError;
 
 trait StringBackedEnumTrait
@@ -66,5 +67,57 @@ trait StringBackedEnumTrait
         }
 
         return static::tryFrom($value);
+    }
+
+    /**
+     * Returns an array of normalized enums, skipping any null values
+     * @param BackedEnum|string|array|null ...$values
+     * @return static[]
+     */
+    public static function normalizeToEnums(BackedEnum|string|array|null ...$values): array {
+        $values = static::prepareNormalizeToArray($values);
+
+        return Arr::map($values, function ($value) {
+            return static::normalizeToEnum($value);
+        });
+    }
+
+    /**
+     * Returns an array of normalized enums, skipping any null values
+     * @param BackedEnum|string|array|null ...$values
+     * @return static[]
+     */
+    public static function tryNormalizeToEnums(BackedEnum|string|array|null ...$values): array {
+        $values = static::prepareNormalizeToArray($values);
+
+        return array_values(Arr::whereNotNull(Arr::map($values, function ($value) {
+            return static::tryNormalizeToEnum($value);
+        })));
+    }
+
+    /**
+     * Returns an array of normalized values, skipping any null values
+     * @param BackedEnum|string|array|null ...$values
+     * @return string[]
+     */
+    public static function normalizeToValues(BackedEnum|string|array|null ...$values): array {
+        $values = static::prepareNormalizeToArray($values);
+
+        return Arr::map($values, function ($value) {
+            return static::normalizeToValue($value);
+        });
+    }
+
+    /**
+     * Returns an array of normalized values, skipping any null values
+     * @param BackedEnum|string|array|null ...$values
+     * @return string[]
+     */
+    public static function tryNormalizeToValues(BackedEnum|string|array|null ...$values): array {
+        $values = static::prepareNormalizeToArray($values);
+
+        return array_values(Arr::whereNotNull(Arr::map($values, function ($value) {
+            return static::tryNormalizeToValue($value);
+        })));
     }
 }

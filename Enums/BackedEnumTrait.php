@@ -3,6 +3,7 @@
 namespace Bytes\EnumSerializerBundle\Enums;
 
 use BackedEnum;
+use Illuminate\Support\Arr;
 use TypeError;
 use UnitEnum;
 use ValueError;
@@ -110,5 +111,20 @@ trait BackedEnumTrait
             'label' => $this->name,
             'value' => $this->value
         ];
+    }
+
+    private static function prepareNormalizeToArray(BackedEnum|int|string|array|null ...$values): array
+    {
+        $values = Arr::wrap($values);
+        $values = Arr::flatten($values);
+        if (is_null($values)) {
+            return [];
+        }
+        
+        if (empty($values)) {
+            return [];
+        }
+        
+        return array_values(Arr::whereNotNull($values));
     }
 }
