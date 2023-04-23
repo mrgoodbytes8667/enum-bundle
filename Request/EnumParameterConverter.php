@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
  * @package Bytes\EnumSerializerBundle\Request
  *
  * @link https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
+ *
+ * @deprecated since 3.2.2, replace with a ValueResolver: https://symfony.com/doc/current/controller/value_resolver.html
  */
 class EnumParameterConverter implements ParamConverterInterface
 {
