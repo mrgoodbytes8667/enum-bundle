@@ -14,7 +14,6 @@ use Symfony\Component\Serializer\Exception\LogicException;
 use Symfony\Component\Serializer\Exception\RuntimeException;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use ValueError;
@@ -23,7 +22,7 @@ use ValueError;
  * Class EnumNormalizer
  * @package Bytes\EnumBundle\Serializer\Normalizer
  */
-class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface, ContextAwareNormalizerInterface, DenormalizerInterface
+class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface, DenormalizerInterface
 {
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -70,7 +69,7 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
      * Denormalizes data back into an object of the given class.
      *
      * @param mixed $data Data to restore
-     * @param string $type The expected class to instantiate
+     * @param class-string<BackedEnum> $type The expected class to instantiate
      * @param string|null $format Format the given data was extracted from
      * @param array $context Options available to the denormalizer
      *
