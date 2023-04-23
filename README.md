@@ -13,6 +13,9 @@
 [![codecov](https://img.shields.io/codecov/c/github/mrgoodbytes8667/enum-serializer-bundle/4.0?logo=codecov&logoColor=FFF&style=flat)](https://codecov.io/gh/mrgoodbytes8667/enum-serializer-bundle)  
 A bundle to provide some helper methods for PHP 8.1+ enums inspired by [spatie/enum](https://github.com/spatie/enum)
 
+## Upgrading to 4.0 from 3.x
+- Replace any usages of `Bytes\EnumSerializerBundle\Request\EnumParameterConverter` with ValueResolvers. See https://symfony.com/doc/current/controller/value_resolver.html
+
 ## Upgrading to 3.0 from 2.x
 - Replace the deprecated calls to `easyAdminChoices()` and `formChoices()` with `provideFormChoices()`.
 - Upgrade any overridden versions of `provideFormChoices()`, `getFormChoiceKey()`, and `getFormChoiceValue()` from `protected` to `public`.
