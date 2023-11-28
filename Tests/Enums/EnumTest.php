@@ -4,8 +4,11 @@ namespace Bytes\EnumSerializerBundle\Tests\Enums;
 
 use Bytes\EnumSerializerBundle\PhpUnit\EnumAssertions;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\BackedEnum;
+use Bytes\EnumSerializerBundle\Tests\Fixtures\BackedEnumWithAttributes;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\IntBackedEnum;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\LabelsEnum;
+use Bytes\EnumSerializerBundle\Tests\Fixtures\SampleAttribute;
+use Bytes\EnumSerializerBundle\Tests\Fixtures\SampleRepeatableAttribute;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\UnbackedEnum;
 use Generator;
 use PHPUnit\Framework\TestCase;
@@ -640,5 +643,36 @@ class EnumTest extends TestCase
         self::assertEquals(UnbackedEnum::A,   UnbackedEnum::tryFromName('A'));
         self::assertNull(BackedEnum::tryFromName('VALUE_C'));
         self::assertNull(UnbackedEnum::tryFromName('VALUE_C'));
+    }
+
+    public function testGetAttribute()
+    {
+        $attribute = BackedEnumWithAttributes::VALUE_A->getSampleAttribute();
+        $attributes = BackedEnumWithAttributes::VALUE_A->getSampleAttributes();
+        $attributeRepeatable = BackedEnumWithAttributes::VALUE_A->getSampleRepeatableAttribute();
+        $attributesRepeatable = BackedEnumWithAttributes::VALUE_A->getSampleRepeatableAttributes();
+
+        self::assertInstanceOf(SampleAttribute::class, $attribute);
+        self::assertCount(1, $attributes);
+        self::assertNull($attributeRepeatable);
+        self::assertCount(0, $attributesRepeatable);
+        self::assertEquals('The value is a', $attribute->getValue());
+        self::assertEquals($attribute->getValue(), $attributes[0]->getValue());
+
+
+        $attribute = BackedEnumWithAttributes::VALUE_B->getSampleAttribute();
+        $attributes = BackedEnumWithAttributes::VALUE_B->getSampleAttributes();
+        $attributeRepeatable = BackedEnumWithAttributes::VALUE_B->getSampleRepeatableAttribute();
+        $attributesRepeatable = BackedEnumWithAttributes::VALUE_B->getSampleRepeatableAttributes();
+
+        self::assertNull($attribute);
+        self::assertCount(0, $attributes);
+        self::assertInstanceOf(SampleRepeatableAttribute::class, $attributeRepeatable);
+        self::assertCount(2, $attributesRepeatable);
+        self::assertEquals('The value is b', $attributeRepeatable->getValue());
+        $value = array_shift($attributesRepeatable);
+        self::assertEquals('The value is b', $value->getValue());
+        $value = array_shift($attributesRepeatable);
+        self::assertEquals('The value is still b', $value->getValue());
     }
 }

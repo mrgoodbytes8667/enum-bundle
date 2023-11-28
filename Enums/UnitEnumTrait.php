@@ -2,6 +2,9 @@
 
 namespace Bytes\EnumSerializerBundle\Enums;
 
+use Illuminate\Support\Arr;
+use ReflectionAttribute;
+use ReflectionClassConstant;
 use ReflectionEnum;
 use UnitEnum;
 use ValueError;
@@ -33,5 +36,32 @@ trait UnitEnumTrait
         $reflection = new ReflectionEnum(static::class);
 
         return $reflection->hasCase($name) ? $reflection->getCase($name)->getValue() : null;
+    }
+
+    /**
+     * @param class-string $attributeClass
+     * @return mixed
+     */
+    private function getAttribute(string $attributeClass)
+    {
+        return Arr::first($this->getAttributes($attributeClass));
+    }
+
+    /**
+     * @param class-string $attributeClass
+     * @return array
+     */
+    private function getAttributes(string $attributeClass): array
+    {
+        $ref = new ReflectionClassConstant(static::class, $this->name);
+        $classAttributes = $ref->getAttributes($attributeClass);
+
+        if (count($classAttributes) === 0) {
+            return [];
+        }
+
+        return array_map(function (ReflectionAttribute $attribute) {
+            return $attribute->newInstance();
+        }, $classAttributes);
     }
 }
