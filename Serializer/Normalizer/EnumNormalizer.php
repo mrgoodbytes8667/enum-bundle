@@ -13,16 +13,11 @@ use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Exception\LogicException;
 use Symfony\Component\Serializer\Exception\RuntimeException;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
-use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use ValueError;
 
-/**
- * Class EnumNormalizer
- * @package Bytes\EnumBundle\Serializer\Normalizer
- */
-class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface, DenormalizerInterface
+class EnumNormalizer implements NormalizerInterface, DenormalizerInterface
 {
     /**
      * Normalizes an object into a set of arrays/scalars.
@@ -107,7 +102,7 @@ class EnumNormalizer implements NormalizerInterface, CacheableSupportsMethodInte
      *
      * @return bool
      */
-    public function supportsDenormalization($data, string $type, string $format = null): bool
+    public function supportsDenormalization($data, string $type, string $format = null, array $context = []): bool
     {
         return is_subclass_of($type, BackedEnum::class);
     }
