@@ -17,6 +17,9 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use ValueError;
 
+/**
+ * @deprecated v6.0.0
+ */
 class EnumNormalizer implements NormalizerInterface, DenormalizerInterface
 {
     /**

@@ -15,10 +15,6 @@ return static function (ContainerConfigurator $container) {
 
     $services = $container->services();
 
-    $services->set('bytesenumserializerbundle.enumnormalizer', EnumNormalizer::class)
-        ->tag('serializer.normalizer')
-        ->args([service('serializer.normalizer.object')]);
-
     $services->set('bytesenumserializerbundle.enum_extension', EnumExtension::class)
         ->tag('twig.extension');
 

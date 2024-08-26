@@ -14,6 +14,9 @@
 [![codecov](https://img.shields.io/codecov/c/github/mrgoodbytes8667/enum-serializer-bundle/6.0?logo=codecov&logoColor=FFF&style=flat)](https://codecov.io/gh/mrgoodbytes8667/enum-serializer-bundle)  
 A bundle to provide some helper methods for PHP 8.1+ enums inspired by [spatie/enum](https://github.com/spatie/enum)
 
+## Upgrading to 6.0 from 5.x
+- The EnumNormalizer will no longer be registered as a service by default. You must manually enable it to continue using it. It will be removed in v7.
+
 ## Upgrading to 4.0 from 3.x
 - Replace any usages of `Bytes\EnumSerializerBundle\Request\EnumParameterConverter` with ValueResolvers. See https://symfony.com/doc/current/controller/value_resolver.html
 
