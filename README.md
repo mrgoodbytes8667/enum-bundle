@@ -11,7 +11,7 @@
 ![GitHub Tests Workflow Status](https://img.shields.io/github/actions/workflow/status/mrgoodbytes8667/enum-serializer-bundle/run-tests.yml?logo=github&logoColor=FFF&style=flat)
 ![GitHub By Version Workflow Status](https://img.shields.io/github/actions/workflow/status/mrgoodbytes8667/enum-serializer-bundle/run-tests-by-version.yml?label=by-version%20build&logo=github&logoColor=FFF&style=flat)
 ![GitHub Coverage Workflow Status](https://img.shields.io/github/actions/workflow/status/mrgoodbytes8667/enum-serializer-bundle/code-coverage.yml?label=coverage%20build&logo=github&logoColor=FFF&style=flat)
-[![codecov](https://img.shields.io/codecov/c/github/mrgoodbytes8667/enum-serializer-bundle/5.0?logo=codecov&logoColor=FFF&style=flat)](https://codecov.io/gh/mrgoodbytes8667/enum-serializer-bundle)  
+[![codecov](https://img.shields.io/codecov/c/github/mrgoodbytes8667/enum-serializer-bundle/6.0?logo=codecov&logoColor=FFF&style=flat)](https://codecov.io/gh/mrgoodbytes8667/enum-serializer-bundle)  
 A bundle to provide some helper methods for PHP 8.1+ enums inspired by [spatie/enum](https://github.com/spatie/enum)
 
 ## Upgrading to 4.0 from 3.x
