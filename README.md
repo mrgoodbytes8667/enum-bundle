@@ -15,6 +15,7 @@
 A bundle to provide some helper methods for PHP 8.1+ enums inspired by [spatie/enum](https://github.com/spatie/enum)
 
 ## Upgrading to 7.0 from 6.x
+- Remove the EnumNormalizer if manually registered
 
 ## Upgrading to 6.0 from 5.x
 - The EnumNormalizer will no longer be registered as a service by default. You must manually enable it to continue using it. It will be removed in v7.
