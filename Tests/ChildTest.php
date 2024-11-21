@@ -7,8 +7,9 @@ namespace Bytes\EnumSerializerBundle\Tests;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\BackedEnum;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\IntBackedEnum;
 use Bytes\EnumSerializerBundle\Tests\Fixtures\PlainInheritedEnum;
+use PHPUnit\Framework\TestCase;
 
-class ChildTest extends TestSerializationCase
+class ChildTest extends TestCase
 {
     /**
      * @return void
