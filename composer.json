@@ -17,6 +17,7 @@
         "symfony/framework-bundle": "^6.3 | ^7.0",
         "symfony/property-access": "^6.3 | ^7.0",
         "symfony/serializer": "^6.3 | ^7.0",
+        "symfony/translation-contracts": "^3.5",
         "twig/twig": "^2.12 | ^3.0"
     },
     "require-dev": {
