@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Bytes\EnumSerializerBundle\Tests\Fixtures;
-
 
 use Bytes\EnumSerializerBundle\Enums\IntBackedEnumInterface;
 use Bytes\EnumSerializerBundle\Enums\IntBackedEnumTrait;

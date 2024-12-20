@@ -158,8 +158,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideAll
-     * @param $enum
-     * @param $value
+     *
      * @return void
      */
     public function testAll($enum, $value)
@@ -169,9 +168,6 @@ class EnumTest extends TestCase
         EnumAssertions::assertSameEnumValue($enum, $value);
     }
 
-    /**
-     * @return Generator
-     */
     public function provideAll(): Generator
     {
         foreach (BackedEnum::cases() as $enum) {
@@ -179,9 +175,6 @@ class EnumTest extends TestCase
         }
     }
 
-    /**
-     * @return Generator
-     */
     public function provideAllInt(): Generator
     {
         foreach (IntBackedEnum::cases() as $enum) {
@@ -191,7 +184,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideChoices
-     * @param $choices
+     *
      * @return void
      */
     public function testChoices($choices)
@@ -209,19 +202,16 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider providePartialChoices
-     * @param array<string, string> $manualValue
+     *
+     * @param array<string, string>     $manualValue
      * @param array<string, BackedEnum> $manualEnum
-     * @param BackedEnum[]|null $enum
-     * @return void
+     * @param BackedEnum[]|null         $enum
      */
     public function testPartialChoices($manualValue, $manualEnum, $enum): void
     {
         $this->assertEquals($manualValue, BackedEnum::provideFormChoices($enum));
     }
 
-    /**
-     * @return Generator
-     */
     public function providePartialChoices(): Generator
     {
         yield 'A' => ['manualValue' => ['Value A' => 'a'], 'manualEnum' => ['Value A' => BackedEnum::VALUE_A], 'enum' => [BackedEnum::VALUE_A]];
@@ -233,7 +223,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideEnumChoices
-     * @param $choices
+     *
      * @return void
      */
     public function testEnumChoices($choices)
@@ -251,9 +241,11 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider providePartialChoices
-     * @param array<string, string> $manualValue
+     *
+     * @param array<string, string>     $manualValue
      * @param array<string, BackedEnum> $manualEnum
-     * @param BackedEnum[]|null $enum
+     * @param BackedEnum[]|null         $enum
+     *
      * @return void
      */
     public function testPartialEnumChoices($manualValue, $manualEnum, $enum)
@@ -263,8 +255,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideAll
-     * @param $enum
-     * @param $value
+     *
      * @return void
      */
     public function testNormalizeToValueSuccess($enum, $value)
@@ -293,8 +284,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideAll
-     * @param $enum
-     * @param $value
+     *
      * @return void
      */
     public function testNormalizeToEnumSuccess($enum, $value)
@@ -314,8 +304,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideAll
-     * @param $enum
-     * @param $value
+     *
      * @return void
      */
     public function testTryNormalizeToValueSuccess($enum, $value)
@@ -342,8 +331,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideAll
-     * @param $enum
-     * @param $value
+     *
      * @return void
      */
     public function testTryNormalizeToEnumSuccess($enum, $value)
@@ -363,8 +351,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideAll
-     * @param $enum
-     * @param $value
+     *
      * @return void
      */
     public function testRandom($enum, $value)
@@ -374,8 +361,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideAllInt
-     * @param $enum
-     * @param $value
+     *
      * @return void
      */
     public function testNormalizeToIntEnumSuccess($enum, $value)
@@ -395,8 +381,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideAllInt
-     * @param $enum
-     * @param $value
+     *
      * @return void
      */
     public function testNormalizeToIntValueSuccess($enum, $value)
@@ -425,8 +410,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideAllInt
-     * @param $enum
-     * @param $value
+     *
      * @return void
      */
     public function testTryNormalizeToIntEnumSuccess($enum, $value)
@@ -445,8 +429,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideAllInt
-     * @param $enum
-     * @param $value
+     *
      * @return void
      */
     public function testTryNormalizeToIntValueSuccess($enum, $value)
@@ -473,8 +456,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideNormalizeToEnumsString
-     * @param $input
-     * @param $expected
+     *
      * @return void
      */
     public function testNormalizeToEnumsString($input, $expected)
@@ -484,7 +466,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideNormalizeToEnumsStringInvalidValue
-     * @param $input
+     *
      * @return void
      */
     public function testNormalizeToEnumsStringInvalidValue($input)
@@ -496,8 +478,7 @@ class EnumTest extends TestCase
     /**
      * @dataProvider provideNormalizeToEnumsString
      * @dataProvider provideNormalizeToEnumsStringInvalidValue
-     * @param $input
-     * @param $expected
+     *
      * @return void
      */
     public function testTryNormalizeToEnumsString($input, $expected)
@@ -507,8 +488,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideNormalizeToValuesString
-     * @param $input
-     * @param $expected
+     *
      * @return void
      */
     public function testNormalizeToValuesString($input, $expected)
@@ -518,7 +498,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideNormalizeToValuesStringInvalidValue
-     * @param $input
+     *
      * @return void
      */
     public function testNormalizeToValuesStringInvalidValue($input)
@@ -530,8 +510,7 @@ class EnumTest extends TestCase
     /**
      * @dataProvider provideNormalizeToValuesString
      * @dataProvider provideNormalizeToValuesStringInvalidValue
-     * @param $input
-     * @param $expected
+     *
      * @return void
      */
     public function testTryNormalizeToValuesString($input, $expected)
@@ -541,8 +520,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideNormalizeToEnumsInt
-     * @param $input
-     * @param $expected
+     *
      * @return void
      */
     public function testNormalizeToEnumsInt($input, $expected)
@@ -552,7 +530,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideNormalizeToEnumsIntInvalidValue
-     * @param $input
+     *
      * @return void
      */
     public function testNormalizeToEnumsIntInvalidValue($input)
@@ -564,8 +542,7 @@ class EnumTest extends TestCase
     /**
      * @dataProvider provideNormalizeToEnumsInt
      * @dataProvider provideNormalizeToEnumsIntInvalidValue
-     * @param $input
-     * @param $expected
+     *
      * @return void
      */
     public function testTryNormalizeToEnumsInt($input, $expected)
@@ -575,8 +552,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideNormalizeToValuesInt
-     * @param $input
-     * @param $expected
+     *
      * @return void
      */
     public function testNormalizeToValuesInt($input, $expected)
@@ -586,7 +562,7 @@ class EnumTest extends TestCase
 
     /**
      * @dataProvider provideNormalizeToValuesIntInvalidValue
-     * @param $input
+     *
      * @return void
      */
     public function testNormalizeToValuesIntInvalidValue($input)
@@ -607,8 +583,7 @@ class EnumTest extends TestCase
     /**
      * @dataProvider provideNormalizeToValuesInt
      * @dataProvider provideNormalizeToValuesIntInvalidValue
-     * @param $input
-     * @param $expected
+     *
      * @return void
      */
     public function testTryNormalizeToValuesInt($input, $expected)
@@ -631,16 +606,18 @@ class EnumTest extends TestCase
         self::assertEquals([], IntBackedEnum::tryNormalizeToValues(null));
     }
 
-    public function testFromName() {
+    public function testFromName()
+    {
         self::assertEquals(BackedEnum::VALUE_A, BackedEnum::fromName('VALUE_A'));
         self::assertEquals(BackedEnum::VALUE_B, BackedEnum::fromName('VALUE_B'));
         self::assertEquals(UnbackedEnum::A, UnbackedEnum::fromName('A'));
     }
 
-    public function testTryFromName() {
+    public function testTryFromName()
+    {
         self::assertEquals(BackedEnum::VALUE_A, BackedEnum::tryFromName('VALUE_A'));
         self::assertEquals(BackedEnum::VALUE_B, BackedEnum::tryFromName('VALUE_B'));
-        self::assertEquals(UnbackedEnum::A,   UnbackedEnum::tryFromName('A'));
+        self::assertEquals(UnbackedEnum::A, UnbackedEnum::tryFromName('A'));
         self::assertNull(BackedEnum::tryFromName('VALUE_C'));
         self::assertNull(UnbackedEnum::tryFromName('VALUE_C'));
     }
@@ -658,7 +635,6 @@ class EnumTest extends TestCase
         self::assertCount(0, $attributesRepeatable);
         self::assertEquals('The value is a', $attribute->getValue());
         self::assertEquals($attribute->getValue(), $attributes[0]->getValue());
-
 
         $attribute = BackedEnumWithAttributes::VALUE_B->getSampleAttribute();
         $attributes = BackedEnumWithAttributes::VALUE_B->getSampleAttributes();

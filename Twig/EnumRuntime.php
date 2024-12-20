@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Bytes\EnumSerializerBundle\Twig;
 
 use Bytes\EnumSerializerBundle\Enums\FormChoiceEnumInterface;
@@ -9,8 +8,8 @@ use Twig\Extension\RuntimeExtensionInterface;
 class EnumRuntime implements RuntimeExtensionInterface
 {
     /**
-     * @param string|int|null $value
      * @param class-string<FormChoiceEnumInterface> $class
+     *
      * @return string
      */
     public static function getFormLabel(string|int|null $value, string $class)
@@ -22,7 +21,7 @@ class EnumRuntime implements RuntimeExtensionInterface
                 return $instance::getFormChoiceKey($instance);
             }
         }
-        
+
         return '';
     }
 }

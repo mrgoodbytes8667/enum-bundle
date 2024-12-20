@@ -4,10 +4,12 @@ namespace Bytes\EnumSerializerBundle\Enums;
 
 use BackedEnum;
 use Illuminate\Support\Arr;
+
+use function Symfony\Component\String\u;
+
 use TypeError;
 use UnitEnum;
 use ValueError;
-use function Symfony\Component\String\u;
 
 /**
  * @method static BackedEnum random()
@@ -18,6 +20,7 @@ trait BackedEnumTrait
 
     /**
      * @param array<BackedEnum> $cases
+     *
      * @return array<string, string>
      */
     public static function provideFormChoices(?array $cases = null): array
@@ -31,11 +34,13 @@ trait BackedEnumTrait
     }
 
     /**
-     * For usage in EasyAdminBundle until such time that #4988 is resolved
+     * For usage in EasyAdminBundle until such time that #4988 is resolved.
+     *
      * @param array<BackedEnum> $cases
+     *
      * @return array<string, static>
      *
-     * @link https://github.com/EasyCorp/EasyAdminBundle/pull/4988
+     * @see https://github.com/EasyCorp/EasyAdminBundle/pull/4988
      */
     public static function provideFormEnums(?array $cases = null): array
     {
@@ -47,27 +52,16 @@ trait BackedEnumTrait
         return $return;
     }
 
-    /**
-     * @return string
-     */
     public function formChoiceKey(): string
     {
         return u($this->name)->lower()->replace('_', ' ')->title(true)->toString();
     }
 
-    /**
-     * @param UnitEnum $value
-     * @return string
-     */
     public static function getFormChoiceKey(UnitEnum $value): string
     {
         return $value->formChoiceKey();
     }
 
-    /**
-     * @param UnitEnum $value
-     * @return string
-     */
     public static function getFormChoiceValue(UnitEnum $value): string
     {
         return $value->value;
@@ -84,15 +78,15 @@ trait BackedEnumTrait
     }
 
     /**
-     * Helper method to determine if a supplied value is an enum value
-     * @param string|int $value
+     * Helper method to determine if a supplied value is an enum value.
      *
-     * @return bool
+     * @param string|int $value
      */
     public static function isValid($value): bool
     {
         try {
             $enum = static::from($value);
+
             return true;
         } catch (ValueError) {
             return false;
@@ -101,10 +95,6 @@ trait BackedEnumTrait
         }
     }
 
-    /**
-     * @param BackedEnum ...$others
-     * @return bool
-     */
     public function equals(BackedEnum ...$others): bool
     {
         foreach ($others as $other) {
@@ -126,7 +116,7 @@ trait BackedEnumTrait
     {
         return [
             'label' => $this->name,
-            'value' => $this->value
+            'value' => $this->value,
         ];
     }
 
@@ -137,11 +127,11 @@ trait BackedEnumTrait
         if (is_null($values)) {
             return [];
         }
-        
+
         if (empty($values)) {
             return [];
         }
-        
+
         return array_values(Arr::whereNotNull($values));
     }
 }

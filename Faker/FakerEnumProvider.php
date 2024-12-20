@@ -12,8 +12,6 @@ class FakerEnumProvider extends Base
      * A random instance of the enum you pass in.
      *
      * @param class-string<UnitEnum|BackedEnum> $enum
-     *
-     * @return UnitEnum|BackedEnum
      */
     public function randomEnum(string $enum): UnitEnum|BackedEnum
     {
@@ -24,12 +22,9 @@ class FakerEnumProvider extends Base
      * A random value of the enum you pass in.
      *
      * @param class-string<BackedEnum> $enum
-     *
-     * @return string|int
      */
     public function randomEnumValue(string $enum): int|string
     {
         return $this->randomEnum($enum)->value;
     }
-
 }

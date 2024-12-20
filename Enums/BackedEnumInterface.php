@@ -12,10 +12,9 @@ interface BackedEnumInterface extends EasyAdminChoiceEnumInterface, FormChoiceEn
     public static function values(): array;
 
     /**
-     * Helper method to determine if a supplied value is an enum value
-     * @param string|int $value
+     * Helper method to determine if a supplied value is an enum value.
      *
-     * @return bool
+     * @param string|int $value
      */
     public static function isValid($value): bool;
 }

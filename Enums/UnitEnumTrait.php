@@ -11,9 +11,6 @@ use ValueError;
 
 trait UnitEnumTrait
 {
-    /**
-     * @return UnitEnum
-     */
     public static function random(): UnitEnum
     {
         $random = array_rand(static::cases());
@@ -40,6 +37,7 @@ trait UnitEnumTrait
 
     /**
      * @param class-string $attributeClass
+     *
      * @return mixed
      */
     private function getAttribute(string $attributeClass)
@@ -49,14 +47,13 @@ trait UnitEnumTrait
 
     /**
      * @param class-string $attributeClass
-     * @return array
      */
     private function getAttributes(string $attributeClass): array
     {
         $ref = new ReflectionClassConstant(static::class, $this->name);
         $classAttributes = $ref->getAttributes($attributeClass);
 
-        if (count($classAttributes) === 0) {
+        if (0 === count($classAttributes)) {
             return [];
         }
 

@@ -13,10 +13,9 @@ abstract class EnumAssertions
     /**
      * Checks if actual is a value of the given enum class name.
      *
-     * @param string $enum
      * @psalm-param class-string<BackedEnum> $enum
+     *
      * @param string|mixed $actual
-     * @param string|null $message
      */
     public static function assertIsEnumValue(string $enum, $actual, ?string $message = null): void
     {
@@ -34,10 +33,9 @@ abstract class EnumAssertions
     /**
      * Checks if actual is a label of the given enum class name.
      *
-     * @param string $enum
      * @psalm-param class-string<BackedEnum> $enum
+     *
      * @param string|mixed $actual
-     * @param string|null $message
      */
     public static function assertIsEnumLabel(string $enum, $actual, ?string $message = null): void
     {
@@ -55,9 +53,7 @@ abstract class EnumAssertions
     /**
      * Checks if actual (after being transformed to enum) equals expected.
      *
-     * @param BackedEnum $expected
      * @param BackedEnum|string|int|mixed $actual
-     * @param string|null $message
      */
     public static function assertEqualsEnum(BackedEnum $expected, $actual, ?string $message = null): void
     {
@@ -77,9 +73,6 @@ abstract class EnumAssertions
 
     /**
      * @param int|string|BackedEnum $value
-     * @param BackedEnum $enum
-     *
-     * @return BackedEnum
      *
      * @throws TypeError
      * @throws BadMethodCallException
@@ -101,9 +94,7 @@ abstract class EnumAssertions
     /**
      * Checks if actual equals expected.
      *
-     * @param BackedEnum $expected
      * @param BackedEnum|mixed $actual
-     * @param string|null $message
      */
     public static function assertSameEnum(BackedEnum $expected, $actual, ?string $message = null): void
     {
@@ -119,7 +110,6 @@ abstract class EnumAssertions
      * Checks if actual extends \BackedEnum::class.
      *
      * @param BackedEnum|mixed $actual
-     * @param string|null $message
      */
     public static function assertIsEnum($actual, ?string $message = null): void
     {
@@ -133,9 +123,7 @@ abstract class EnumAssertions
     /**
      * Checks if actual equals the value of expected.
      *
-     * @param BackedEnum $expected
      * @param string|int|mixed $actual
-     * @param string|null $message
      */
     public static function assertSameEnumValue(BackedEnum $expected, $actual, ?string $message = null): void
     {

@@ -16,8 +16,6 @@ trait IntBackedEnumTrait
     }
 
     /**
-     * @param BackedEnum|int $value
-     * @return int
      * @throws ValueError
      */
     public static function normalizeToValue(BackedEnum|int $value): int
@@ -32,8 +30,6 @@ trait IntBackedEnumTrait
     }
 
     /**
-     * @param BackedEnum|int $value
-     * @return static
      * @throws ValueError
      */
     public static function normalizeToEnum(BackedEnum|int $value): static
@@ -45,10 +41,6 @@ trait IntBackedEnumTrait
         return static::from($value);
     }
 
-    /**
-     * @param BackedEnum|int $value
-     * @return int|null
-     */
     public static function tryNormalizeToValue(BackedEnum|int $value): ?int
     {
         if ($value instanceof static) {
@@ -60,10 +52,6 @@ trait IntBackedEnumTrait
         }
     }
 
-    /**
-     * @param BackedEnum|int $value
-     * @return static|null
-     */
     public static function tryNormalizeToEnum(BackedEnum|int $value): ?static
     {
         if ($value instanceof static) {
@@ -74,11 +62,12 @@ trait IntBackedEnumTrait
     }
 
     /**
-     * Returns an array of normalized enums, skipping any null values
-     * @param BackedEnum|int|array|null ...$values
+     * Returns an array of normalized enums, skipping any null values.
+     *
      * @return static[]
      */
-    public static function normalizeToEnums(BackedEnum|int|array|null ...$values): array {
+    public static function normalizeToEnums(BackedEnum|int|array|null ...$values): array
+    {
         $values = static::prepareNormalizeToArray($values);
 
         return Arr::map($values, function ($value) {
@@ -87,11 +76,12 @@ trait IntBackedEnumTrait
     }
 
     /**
-     * Returns an array of normalized enums, skipping any null values
-     * @param BackedEnum|int|array|null ...$values
+     * Returns an array of normalized enums, skipping any null values.
+     *
      * @return static[]
      */
-    public static function tryNormalizeToEnums(BackedEnum|int|array|null ...$values): array {
+    public static function tryNormalizeToEnums(BackedEnum|int|array|null ...$values): array
+    {
         $values = static::prepareNormalizeToArray($values);
 
         return array_values(Arr::whereNotNull(Arr::map($values, function ($value) {
@@ -100,11 +90,12 @@ trait IntBackedEnumTrait
     }
 
     /**
-     * Returns an array of normalized values, skipping any null values
-     * @param BackedEnum|int|array|null ...$values
+     * Returns an array of normalized values, skipping any null values.
+     *
      * @return int[]
      */
-    public static function normalizeToValues(BackedEnum|int|array|null ...$values): array {
+    public static function normalizeToValues(BackedEnum|int|array|null ...$values): array
+    {
         $values = static::prepareNormalizeToArray($values);
 
         return Arr::map($values, function ($value) {
@@ -113,11 +104,12 @@ trait IntBackedEnumTrait
     }
 
     /**
-     * Returns an array of normalized values, skipping any null values
-     * @param BackedEnum|int|array|null ...$values
+     * Returns an array of normalized values, skipping any null values.
+     *
      * @return int[]
      */
-    public static function tryNormalizeToValues(BackedEnum|int|array|null ...$values): array {
+    public static function tryNormalizeToValues(BackedEnum|int|array|null ...$values): array
+    {
         $values = static::prepareNormalizeToArray($values);
 
         return array_values(Arr::whereNotNull(Arr::map($values, function ($value) {

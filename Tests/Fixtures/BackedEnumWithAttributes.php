@@ -16,19 +16,23 @@ enum BackedEnumWithAttributes: string implements StringBackedEnumInterface
     #[SampleRepeatableAttribute('The value is still b')]
     case VALUE_B = 'b';
 
-    public function getSampleAttribute() {
+    public function getSampleAttribute()
+    {
         return $this->getAttribute(SampleAttribute::class);
     }
 
-    public function getSampleAttributes() {
+    public function getSampleAttributes()
+    {
         return $this->getAttributes(SampleAttribute::class);
     }
 
-    public function getSampleRepeatableAttribute() {
+    public function getSampleRepeatableAttribute()
+    {
         return $this->getAttribute(SampleRepeatableAttribute::class);
     }
 
-    public function getSampleRepeatableAttributes() {
+    public function getSampleRepeatableAttributes()
+    {
         return $this->getAttributes(SampleRepeatableAttribute::class);
     }
 }
