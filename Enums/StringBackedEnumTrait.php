@@ -132,4 +132,12 @@ trait StringBackedEnumTrait
             return static::tryNormalizeToValue($value);
         })));
     }
+
+    public function transKey(): string
+    {
+        return u(basename(str_replace('\\', '/', get_class($this))))
+            ->snake()
+            ->prepend('enums', '.')
+            ->append('.', $this->name);
+    }
 }
