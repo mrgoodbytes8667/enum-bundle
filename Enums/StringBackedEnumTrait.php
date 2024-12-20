@@ -3,12 +3,20 @@
 namespace Bytes\EnumSerializerBundle\Enums;
 
 use BackedEnum;
+use Cerbero\Enum\Concerns\Enumerates;
 use Illuminate\Support\Arr;
+
+use function Symfony\Component\String\u;
+
 use ValueError;
 
 trait StringBackedEnumTrait
 {
-    use BackedEnumTrait;
+    use BackedEnumTrait, Enumerates {
+        BackedEnumTrait::fromName insteadof Enumerates;
+        BackedEnumTrait::tryFromName insteadof Enumerates;
+        Enumerates::values insteadof BackedEnumTrait;
+    }
 
     /**
      * @param BackedEnum|string $value
@@ -123,5 +131,13 @@ trait StringBackedEnumTrait
         return array_values(Arr::whereNotNull(Arr::map($values, function ($value) {
             return static::tryNormalizeToValue($value);
         })));
+    }
+
+    public function transKey(): string
+    {
+        return u(basename(str_replace('\\', '/', get_class($this))))
+            ->snake()
+            ->prepend('enums', '.')
+            ->append('.', $this->name);
     }
 }
