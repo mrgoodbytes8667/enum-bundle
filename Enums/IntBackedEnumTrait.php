@@ -3,12 +3,17 @@
 namespace Bytes\EnumSerializerBundle\Enums;
 
 use BackedEnum;
+use Cerbero\Enum\Concerns\Enumerates;
 use Illuminate\Support\Arr;
 use ValueError;
 
 trait IntBackedEnumTrait
 {
-    use BackedEnumTrait;
+    use BackedEnumTrait, Enumerates {
+        BackedEnumTrait::fromName insteadof Enumerates;
+        BackedEnumTrait::tryFromName insteadof Enumerates;
+        Enumerates::values insteadof BackedEnumTrait;
+    }
 
     /**
      * @param BackedEnum|int $value

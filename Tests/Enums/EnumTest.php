@@ -675,4 +675,9 @@ class EnumTest extends TestCase
         $value = array_shift($attributesRepeatable);
         self::assertEquals('The value is still b', $value->getValue());
     }
+
+    public function testTransKey()
+    {
+        self::assertSame('enums.backed_enum.VALUE_A', BackedEnum::VALUE_A->transKey());
+    }
 }
